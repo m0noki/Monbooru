@@ -1,6 +1,6 @@
-˚₊‧꒰ა Monbooru ໒꒱‧₊˚
+## ˚₊‧꒰ა Monbooru ໒꒱‧₊˚
 
-A little creative corner for everyone! ♡
+# A little creative corner for everyone! ♡
 
 Welcome to Monbooru, a booru-inspired creative project featuring handy tools, generators, temporary media storage, and drawing features. Explore, experiment, and have fun!
 
@@ -18,7 +18,7 @@ Monbooru brings together creativity and convenience in one little place. Whether
 
 Monbooru is made for experimenting, creating, and enjoying little creative tools. Have fun exploring its features!
 
-˚₊‧꒰ა #💌 Thanks for Visiting! ໒꒱‧₊˚
+# ˚₊‧꒰ა #💌 Thanks for Visiting! ໒꒱‧₊˚
 
 Thank you for checking out Monbooru! Your interest and support mean a lot.
 
