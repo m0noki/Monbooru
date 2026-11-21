@@ -1,0 +1,83 @@
+# ˚₊‧꒰ა Monbooru (もんぶーる) ໒꒱‧₊˚
+
+*A booru-inspired creative project with its own identity, utilities, and features.* ☆
+
+---
+
+# ˚₊‧꒰ა About Monbooru ໒꒱‧₊˚
+
+Welcome to **Monbooru!**
+
+Monbooru is an independent creative project inspired by **Danbooru** and the wider booru-style community. Its foundation takes inspiration from the recognizable conventions of booru platforms, particularly their approach to organizing visual content, descriptive tagging, searchable information, and structured presentation.
+
+Rather than being a remake or direct reproduction of an existing platform, Monbooru explores the booru concept through its own interpretation, creative direction, and collection of utilities.
+
+The project combines booru-inspired ideas with additional features that extend beyond traditional image organization. Its purpose is to bring together different creative tools and experiments under one recognizable project identity.
+
+˚₊‧꒰ა #📚 Inspiration & Background ໒꒱‧₊˚
+
+Monbooru takes particular inspiration from Danbooru, including its recognizable tagging conventions, content organization, and overall booru-style presentation.
+
+The broader booru community has established a distinctive approach to discovering, categorizing, and navigating visual content. These conventions provide an interesting foundation for Monbooru's development.
+
+Its visual direction also draws inspiration from older Japanese websites and traditional web interfaces, incorporating compact layouts, restrained colors, decorative typography, and straightforward navigation.
+
+Monbooru maintains its own independent identity and is not affiliated with or an official continuation of Danbooru.
+
+˚₊‧꒰ა #🎨 Design Philosophy ໒꒱‧₊˚
+
+The project's visual and functional direction emphasizes:
+
+- **Booru-inspired organization:** Taking inspiration from established booru conventions.
+- **Distinctive presentation:** Maintaining a recognizable visual identity.
+- **Compact interfaces:** Favoring straightforward layouts and carefully arranged elements.
+- **Creative experimentation:** Allowing different tools and features to coexist.
+- **Accessibility:** Keeping features and navigation understandable.
+
+˚₊‧꒰ა #🧸 Features & Utilities ໒꒱‧₊˚
+
+Monbooru brings together several independent creative features.
+
+### ☆ Generators
+
+A collection of generators for producing different visual elements and creative outputs.
+
+Currently includes a **Star Generator** for creating decorative star designs.
+
+### ☆ Boorubox
+
+A temporary media-storage feature designed for animated content.
+
+Supported media includes:
+
+- GIF
+- APNG
+- Other animated media formats
+
+**Storage duration:** Uploaded media automatically expires after one hour. Boorubox is intended for temporary storage rather than permanent file hosting.
+
+### ☆ Drawing
+
+A built-in drawing feature that provides an additional creative space for making original artwork and experimenting with visual ideas.
+
+˚₊‧꒰ა #💻 Development & Independence ໒꒱‧₊˚
+
+Monbooru is developed as an independent project. Its features, interface, and future direction are determined by its own development rather than attempting to reproduce another platform's complete functionality.
+
+The project may evolve over time through improvements, new utilities, interface changes, and additional experiments.
+
+Its repository serves as a place to maintain project files, document development, and organize the resources associated with Monbooru.
+
+˚₊‧꒰ა #📜 License & Usage ໒꒱‧₊˚
+
+Monbooru is distributed under the **MIT License**.
+
+Please refer to the accompanying license terms for information about permissions, redistribution, modification, and the conditions of use.
+
+˚₊‧꒰ა #💌 A Little Thank You ໒꒱‧₊˚
+
+Thank you for taking an interest in Monbooru!
+
+Whether you're exploring its features, looking through its source files, or simply curious about the project, your interest is appreciated.
+
+**Inspired by booru culture, developed independently, and built around its own creative direction.** ☆
