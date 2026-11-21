@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+
+@font-face {
+    font-family: "07LightNovelPop";
+    src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/LightNovelPOPv2.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "07LogoTypeGothic7";
+    src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/07LogoTypeGothic7.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+*,
+*::before,
+*::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    accent-color: #70868E;
+
+    -webkit-tap-highlight-color: rgba(188, 216, 222, 0.5);
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: auto;
+
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+html, body * {
+    cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1031.png") 32 32, auto !important;
+}
+
+a, button, select {
+   cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1030.png") 32 32, auto !important;
+}
+
+textarea, input[type="text"], p, h1, h2, {
+   cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1047.png") 32 32, auto !important;
+}
+
+
+body {
+    position: relative;
+    background-color: #EDF4F7;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M-2 2L2 -2M0 8L8 0M6 10L10 6M-2 6L2 10M0 0L8 8M6 -2L10 2' stroke='%23DAE7EB' stroke-width='3'/%3E%3C/svg%3E");
+    color: #8FACB5;
+    font-family: "07LogoTypeGothic7", sans-serif;
+    font-size: 12px;
+    text-align: center;
+    line-height: 25px;
+}
+
+div {
+    box-sizing: border-box;
+    padding: 2px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #70868E;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: bold;
+    margin: 2px 0;
+    padding: 2px;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+p {
+    color: #8FACB5;
+    margin: 2px 0;
+}
+
+a {
+    color: #70868E;
+    text-decoration: underline;
+    font-family: "07LightNovelPop", sans-serif;
+}
+
+a:hover {
+    color: #8FACB5;
+    text-decoration: none;
+}
+
+hr {
+    border: 0;
+    border-top: 1px ridge #70868E;
+    margin: 2px 0;
+}
+
+ul, ol {
+    margin: 2px 0;
+    padding-left: 18px;
+}
+
+ul {
+    list-style-type: "☆ ";
+}
+
+details {
+    padding: 2px;
+}
+
+summary {
+    color: #70868E;
+    cursor: pointer;
+    font-weight: bold;
+    list-style-type: "★ ";
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #DAE7EB;
+    padding: 2px;
+    text-align: left;
+}
+
+th {
+    background-color: #DAE7EB;
+    color: #70868E;
+}
+
+code, pre {
+    background-color: #DAE7EB;
+    color: #70868E;
+    font-family: monospace;
+}
+
+code, pre {
+    padding: 2px;
+}
+
+pre {
+    overflow-x: hidden;
+    background: transparent;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+input[type="password"] {
+    padding: 2px;
+    width: 160px;
+}
+
+input[type="number"] {
+    padding: 2px;
+    width: 60px;
+    text-align: center;
+}
+
+</style>
+
+</head>
+<body>
+
+<h3>Registry</h3>
+
+<input type="text" placeholder="Name...">
+<br>
+<input type="text" placeholder="Username..." style="width:220px;">
+<br>
+<input type="password" placeholder="Password...">
+<br>
+<input type="date" id="birthday" name="birthday">
+<br>
+
+<input type="checkbox"> I have agreed to the <b>Terms & Conditions</b> and <b>Privacy Policy</b>
+
+<br>
+
+<h3>NOTE: You must be 25 or below teens/young teens to continue on this site.</h3>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<div class="cf-turnstile" data-sitekey="0x4AAAAAAGLdasr7igHGv0xO"></div>
+
+<button id="submit" style="padding:2px 8px;">Register!</button>
+<div id="status"></div>
+
+<h1>☆ ACCOUNT SAFETY ☆</h1>
+<h3>2channel Cats Collection &middot; Member Safety Guide</h3>
+<pre>      &and;＿&and;
+      （　&acute;&forall;｀）
+      と　　 つ💌
+       しーＪ
+
+   MONA'S LITTLE LETTER </pre>
+<p>Welcome to the Account Safety Guide! Keeping your account protected is an important part of enjoying the 2channel Cats Collection. Whether you're browsing, reading posts, participating in discussions, or managing your profile, it's important to protect your account and personal information. Online security doesn't have to be complicated. A few good habits can help prevent unwanted access, suspicious activity, and accidental information sharing. Mona has prepared this little letter with helpful reminders from the cats. Take your time reading through it, and remember these recommendations whenever you visit the website!</p>
+<div><hr /></div>
+<h2>☆ PASSWORD PROTECTION</h2>
+<pre>　　　　　　　　　&and;&and;
+　　　　　 -=&equiv;（llﾟДﾟ）
+　　　　　 -=&equiv;/ つ つ
+　　(⌒,, -=&equiv;（_⌒)'
+(⌒,,　 -=&equiv;(_ノし</pre>
+<p><strong>Giko is rushing over with an important reminder!</strong></p>
+<p>Your password is one of the most important parts of your account security. It helps prevent other people from accessing your account without permission, so choosing a strong one is essential. Avoid passwords that are easy to guess, such as simple number sequences, common words, your username, or personal information like your birthday. Instead, choose a longer password that is difficult for someone else to predict. You should also use a different password for every website you register on. Reusing the same password across multiple services can put several accounts at risk if one of those services experiences a security breach. Never publish your password in comments, messages, screenshots, or profile descriptions. Even if someone claims to be a friend or website administrator, your password should remain private.</p>
+<p><strong>☆ Password safety checklist</strong></p>
+<ul>
+<li>
+<p>Use a long, difficult-to-guess password.</p>
+</li>
+<li>
+<p>Avoid obvious personal information.</p>
+</li>
+<li>
+<p>Do not reuse passwords across different websites.</p>
+</li>
+<li>
+<p>Never share your password with another person.</p>
+</li>
+<li>
+<p>Change it if you believe somebody else has discovered it.</p>
+</li>
+</ul>
+<div><hr /></div>
+<h2>☆ KEEP YOUR LOGIN INFORMATION PRIVATE</h2>
+<pre>       &and;＿&and;
+      （　&acute;&forall;｀）
+      と　　 つ💌
+       しーＪ</pre>
+<p>Mona has another little letter for you!</p>
+<p>Your account belongs to you, and your login information should stay private. Never lend your account to strangers or allow another person to sign in using your credentials. Someone might ask to borrow your account, promise to help manage it, or offer special benefits in exchange for your password. These requests can put your account at risk. Sharing login details may allow someone to change your profile, publish content under your username, or interfere with your account settings without your permission. Be careful with anyone claiming to be a staff member who asks you to reveal your password. Legitimate account assistance should not require you to disclose your private login credentials. If you receive an unusual request, do not rush to respond. Take the time to check whether it is genuine.</p>
+<p><strong>Remember:</strong> Your password is private. You never need to hand it over to prove that your account belongs to you.</p>
+<div><hr /></div>
+<h2>☆ WATCH OUT FOR SUSPICIOUS LINKS</h2>
+<pre>　　　&and; &and;＿＿
+　 ／(*ﾟーﾟ)　 ／＼
+／|￣ Ｕ Ｕ￣|＼／
+　 |　　しぃ　 .|／
+　　￣￣￣￣</code></pre>
+<p><strong>Shii is tucked inside her cardboard box!</strong></p>
+<p>Not every link you encounter online is trustworthy. Some websites imitate familiar login pages or pretend to offer free rewards, special features, account upgrades, or exclusive benefits. These pages may attempt to trick visitors into entering their passwords or other private information. Before signing in, carefully check the website address and make sure you are visiting the correct website. Be cautious with unfamiliar links sent through comments, private messages, emails, or other websites. Avoid downloading unexpected files from sources you do not recognize. A page looking familiar does not automatically mean it is legitimate. Also, be suspicious of messages that pressure you to act immediately, threaten to suspend your account, or promise something that sounds unusually good. If something feels unusual, it is perfectly fine to close the page and avoid interacting with it.</p>
+<p><strong>☆ Before opening a link:</strong></p>
+<ul>
+<li>
+<p>Check whether the website address looks correct.</p>
+</li>
+<li>
+<p>Avoid unfamiliar downloads.</p>
+</li>
+<li>
+<p>Never enter your password on suspicious pages.</p>
+</li>
+<li>
+<p>Be cautious with unexpected rewards and offers.</p>
+</li>
+</ul>
+<div><hr /></div>
+<h2>☆ PROTECT YOUR PERSONAL INFORMATION</h2>
+<pre>       &Lambda;＿&Lambda;
+      (&acute;･&omega;･`)
+      （　＿　）
+       U　U</pre>
+<p><strong>Shobon has his familiar omega-shaped expression!</strong></p>
+<p>Your public profile does not need to contain private information about your real life. Avoid publishing details such as your home address, personal phone number, school name, daily schedule, passwords, or private contact information. Be especially careful when sharing photographs, screenshots, and other files because they may accidentally reveal information you did not intend to make public. Even if you delete a post later, someone may already have copied or saved it. Think carefully before publishing something that could identify you or another person. It is also important to respect other people's privacy. Never share somebody else's personal details, photographs, or private conversations without their permission.</p>
+<p>You can enjoy browsing and participating in discussions without revealing your private information. Keeping some things to yourself is a perfectly good online safety habit!</p>
+<div><hr /></div>
+<h2>☆ USING SHARED DEVICES</h2>
+<pre>      &and;＿&and;
+      （　&acute;&forall;｀）
+      と　　 つ💻
+       しーＪ</pre>
+<p>If you access your account using a shared computer, school device, public computer, or another person's device, remember that other people may be able to access it too. Avoid saving your password in a browser that other people use, and do not leave your account signed in after finishing your session. When you are done browsing, sign out properly and close the page. Be careful when using devices that have unfamiliar browser extensions, saved passwords, or automatic sign-in settings. If you accidentally leave your account signed in on a device you do not control, take steps to secure it as soon as possible. Checking your sign-in status before leaving is a small habit that can prevent unwanted access later.</p>
+<div><hr /></div>
+<h2>☆ SUSPICIOUS MESSAGES AND IMPOSTORS</h2>
+<pre>　　　　　　　　　&and;&and;
+　　　　　 -=&equiv;（llﾟДﾟ）
+　　　　　 -=&equiv;/ つ つ
+　　(⌒,, -=&equiv;（_⌒)'
+(⌒,,　 -=&equiv;(_ノし</pre>
+<p><strong>Giko has spotted something suspicious!</strong></p>
+<p>Be careful with messages from people who ask for your password, verification codes, personal information, or access to your account. Some messages may pretend to come from website administrators, moderators, or technical support. Others might claim that your account has a problem and that you must provide information immediately to prevent losing access. Do not trust a message simply because it uses official-looking language or familiar names. Never share verification codes with another person, because they may be used to access your account or authorize actions you did not intend. If a message seems suspicious, avoid clicking its links or replying with private information. Use the website's official reporting features if they are available.</p>
+<p><strong>A security warning should never require you to reveal your password to another person.</strong></p>
+<div><hr /></div>
+<h2>☆ ACCOUNT RECOVERY</h2>
+<pre><code>       &Lambda;＿&Lambda;
+      (&acute;･&omega;･`)
+      （　＿　）
+       U　U</code></pre>
+<p>If the website provides account recovery options, make sure you understand how they work. Keep access to the email address or other recovery method associated with your account, and protect that information as carefully as your password. If you notice unfamiliar activity, unexpected profile changes, or actions you did not perform, review your account settings and take appropriate steps to secure it. Change your password if you suspect it has been exposed. If you lose access to your account, use the website's official recovery process rather than trusting strangers who claim they can restore it for you. Never provide your password or verification codes to someone offering unofficial recovery assistance.</p>
+<div><hr /></div>
+<h2>☆ RESPONSIBLE ACCOUNT USE</h2>
+<pre>      &and;＿&and;
+      （ ・&forall;・ ）
+      &sub;　　　つ
+        し'￣</pre>
+<p>Morara has a friendly reminder!</p>
+<p>Account safety is also about helping maintain a respectful and comfortable community. Do not impersonate another visitor, pretend to be a staff member, or access another person's account without permission. Avoid posting spam, deceptive links, or content intended to trick other visitors. Do not encourage people to reveal private information, and do not attempt to interfere with someone else's account. If you encounter suspicious activity or inappropriate behavior, use the available website features to report it. Everyone should be able to browse and participate without having their privacy or account security threatened.</p>
+<p>A friendly website is built through responsible behavior, respect, and consideration for other visitors!</p>
+<div><hr /></div>
+<h2>☆ THE CATS' FINAL REMINDERS</h2>
+<pre>       &and;＿&and;
+      （　&acute;&forall;｀）
+      と　　 つ💌
+       しーＪ
+      MONA: Keep your password private!
+
+　　　　　　　　　&and;&and;
+　　　　　 -=&equiv;（llﾟДﾟ）
+　　　　　 -=&equiv;/ つ つ
+　　(⌒,, -=&equiv;（_⌒)'
+(⌒,,　 -=&equiv;(_ノし'
+      GIKO: Check suspicious links!
+
+　　　&and; &and;＿＿
+　 ／(*ﾟーﾟ)　 ／＼
+／|￣ Ｕ Ｕ￣|＼／
+　 |　　しぃ　 .|／
+　　￣￣￣￣
+      SHII: Protect your privacy!
+
+       &Lambda;＿&Lambda;
+      (&acute;･&omega;･`)
+      （　＿　）
+       U　U
+      SHOBON: Stay safe!</pre>
+<p>Before leaving the website, remember to keep your password private, check unfamiliar links before opening them, avoid publishing personal information, and sign out when using a shared device. If something about your account seems unusual, do not ignore it. Take the time to review your security settings and protect your login information.</p>
+<p>Thank you for helping make the 2channel Cats Collection a safer and friendlier place for everyone!</p>
+<p><strong>☆ Have a pleasant visit, and take care of your account! ☆</strong></p>
+<p>2channel Cats Collection &middot; Account Safety Guide</p>
+
+
+<script>
+const registerButton = document.getElementById("submit");
+let registerClicks = 0;
+let clickReset;
+let rateLimited = false;
+let registrationPending = false;
+
+registerButton.addEventListener("click", function () {
+    if (rateLimited || registrationPending) return;
+
+    registerClicks++;
+
+    clearTimeout(clickReset);
+
+    clickReset = setTimeout(() => {
+        registerClicks = 0;
+    }, 5000);
+
+    if (registerClicks >= 12) {
+        rateLimited = true;
+        showRateLimitPage();
+        return;
+    }
+
+    const birthday = document.getElementById("birthday").value;
+    const status = document.getElementById("status");
+    const birthDate = new Date(birthday + "T00:00:00");
+    const today = new Date();
+
+    if (!birthday) {
+        status.style.color = "#C03939";
+        status.textContent = "Please enter your birthday.";
+        return;
+    }
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    if (
+        today.getMonth() < birthDate.getMonth() ||
+        (today.getMonth() === birthDate.getMonth() &&
+         today.getDate() < birthDate.getDate())
+    ) {
+        age--;
+    }
+
+    if (age < 0) {
+        status.style.color = "#C03939";
+        status.textContent = "Invalid birthday.";
+        return;
+    }
+
+    if (age >= 26) {
+        status.style.color = "#C03939";
+        status.textContent =
+            "You must be 25 or below to continue on this site, sorry!";
+        return;
+    }
+
+    registrationPending = true;
+
+    setTimeout(() => {
+        showSuccessPage();
+    }, 800);
+});
+
+
+function showSuccessPage() {
+    document.open();
+    document.write(`
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration successful!</title>
+
+    <style>
+        body {
+            margin: 8px;
+            padding: 0;
+            background: #ffffff;
+            color: #000000;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        h1 {
+            color: #238B45;
+            font-family: Arial, sans-serif;
+            font-size: 26px;
+            font-weight: bold;
+            margin: 0 0 18px;
+        }
+
+        p {
+            color: #000000;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0 0 16px;
+        }
+
+        a {
+            color: #238B45;
+            font-family: Arial, sans-serif;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: #176B34;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #cccccc;
+            margin: 18px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Registration successful!</h1>
+
+    <p>
+        Your registration has been successfully completed.
+        Thank you for taking the time to register and become
+        part of this website. We appreciate your interest and
+        welcome you to the community.
+    </p>
+
+    <p>
+        Your registration details have passed the website's
+        preliminary eligibility checks. You may now continue
+        to the website and explore its available pages,
+        features, content, and other resources.
+    </p>
+
+    <p>
+        Please remember to follow the website's Terms and
+        Conditions and Privacy Policy while browsing. All
+        visitors are expected to behave respectfully,
+        avoid disruptive activity, and use the available
+        services responsibly.
+    </p>
+
+    <p>
+        Keep your account information private and do not
+        share your password with other people. You are
+        responsible for maintaining the confidentiality
+        of your account credentials.
+    </p>
+
+    <p>
+        If you encounter any problems while using the
+        website, please refer to the available information
+        and support pages. We hope you have a pleasant
+        experience exploring everything the website has
+        to offer.
+    </p>
+
+    <p>
+        Thank you once again for registering. We are glad
+        to have you here!
+    </p>
+
+    <hr>
+
+    <p>
+        <a href="eldex.html">Return to homepage</a>
+    </p>
+
+</body>
+</html>
+    `);
+    document.close();
+}
+
+
+function showRateLimitPage() {
+    document.open();
+    document.write(`
+<!DOCTYPE html>
+<html>
+<head>
+    <title>429: Too many requests.</title>
+
+    <style>
+        body {
+            margin: 8px;
+            padding: 0;
+            background: white;
+            color: black;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 0 0 18px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0 0 16px;
+        }
+
+        .loading {
+            position: relative;
+            top: 250px;
+            left: 50%;
+            width: 64px;
+            height: 64px;
+            border: 8px solid #dcecff;
+            border-top: 8px solid #1683e8;
+            border-radius: 50%;
+            animation: spin 2.2s cubic-bezier(0.77, 0.03, 0, 1.03) infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        #errorContent {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="loading" id="loader"></div>
+
+<div id="errorContent">
+
+    <h1>429: Too many requests.</h1>
+
+    <p>The server has detected an unusually high number of registration requests originating from your current session. As a result, access to the registration service has been temporarily restricted to prevent excessive requests and maintain the stability, availability, and reliability of this website.</p>
+
+    <p>This restriction may occur when the registration button is clicked repeatedly within a short period of time, when multiple registration attempts are submitted without waiting for the previous request to finish, or when repeated requests are detected by the website's request-handling system. Such activity may be interpreted as automated behavior, accidental repeated submissions, or an attempt to overload the registration service.</p>
+
+    <p>Please be aware that repeatedly submitting registration requests does not accelerate account creation, improve registration processing, or increase the likelihood of a successful submission. Each request may require additional server resources, and excessive submissions can interfere with normal website operation for other visitors.</p>
+
+    <p>In accordance with the website's Terms of Service, users are expected to interact with the registration system responsibly. Automated submissions, excessive repeated requests, deliberate request flooding, and other forms of disruptive activity are not permitted. Continued violations may result in additional temporary restrictions or other measures necessary to protect the website and its services.</p>
+
+    <p>Your registration request has not been processed through this error response. Please refrain from submitting further requests while this restriction is active. Once the temporary restriction has expired, you may return to the registration page and attempt to register again. Make sure that you submit the registration form only once and allow sufficient time for the request to complete.</p>
+
+    <p>We apologize for any inconvenience this restriction may cause. This measure is intended to preserve the normal operation of the website and ensure that registration remains available to visitors who use the service appropriately.</p>
+
+    <hr>
+
+    <p>HTTP ERROR 429</p>
+    <p>Request rate exceeded. Registration service temporarily unavailable.</p>
+
+    <a href="index.html">Back to homepage</a>
+
+</div>
+
+<script>
+    setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("errorContent").style.display = "block";
+    }, 6000);
+<\/script>
+
+</body>
+</html>
+    `);
+    document.close();
+}
+</script>
+
+
+
+
+
+</body>
+</html>
+
+
