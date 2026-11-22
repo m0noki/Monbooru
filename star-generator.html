@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monbooru ☆ Star Studio</title>
+<link rel="icon" href="favicon-cat.v2.png">
+
+<style>
+@font-face {
+  font-family: "07LightNovelPop";
+  src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io/07LightNovelPop.woff2") format("woff2");
+}
+@font-face {
+  font-family: "07Yasashisa7";
+  src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io/07Yasashisa7.woff2") format("woff2");
+}
+
+:root {
+  --bg:#EDF4F7;
+  --pattern:#DAE7EB;
+  --panel:#F8FCFD;
+  --line:#C6D8DE;
+  --line-dark:#AFC7D0;
+  --text:#8FACB5;
+  --link:#70868E;
+  --accent:#91B8C5;
+  --accent-dark:#668E9C;
+  --red:#B97882;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  padding:3px;
+  color:var(--text);
+  background-color:var(--bg);
+  background-image:radial-gradient(var(--pattern) .65px,transparent .65px);
+  background-size:5px 5px;
+  font:13px "07Yasashisa7","MS PGothic",sans-serif;
+}
+
+button,input,select { font:inherit; }
+
+button,select,input[type="number"],input[type="text"] {
+  color:var(--link);
+  background:#F8FCFD;
+  border:1px solid var(--line-dark);
+  border-radius:2px;
+  padding:3px 5px;
+}
+
+button { cursor:pointer; }
+button:hover { background:#EAF3F6; border-color:var(--accent-dark); }
+button:active { background:#DCEBF0; }
+button:disabled { opacity:.4; cursor:default; }
+button.active { background:#DCEBF0; border-color:var(--accent-dark); }
+
+header {
+  border:1px solid var(--line);
+  background:var(--panel);
+  padding:5px 7px;
+  margin-bottom:5px;
+}
+
+header h1 {
+  margin:0;
+  color:var(--link);
+  font:19px "07LightNovelPop","MS PGothic",sans-serif;
+}
+
+header p { margin:2px 0 0; }
+
+#app {
+  display:grid;
+  grid-template-columns:245px minmax(0,1fr);
+  gap:5px;
+  align-items:start;
+}
+
+.sidebar,.workspace {
+  min-width:0;
+  border:1px solid var(--line);
+  background:var(--panel);
+  padding:5px;
+}
+
+.heading {
+  color:var(--link);
+  font:15px "07LightNovelPop","MS PGothic",sans-serif;
+  padding-bottom:3px;
+  margin-bottom:5px;
+  border-bottom:1px dotted var(--line);
+}
+
+.group {
+  border:1px solid #D7E4E8;
+  padding:4px;
+  margin-bottom:5px;
+}
+
+.group-title {
+  color:var(--link);
+  font:13px "07LightNovelPop","MS PGothic",sans-serif;
+  margin-bottom:4px;
+}
+
+label {
+  display:block;
+  margin:4px 0;
+}
+
+input[type="range"]{appearance:none;-webkit-appearance:none;display:block;width:100%;height:17px;margin:3px 0;padding:0;background:transparent;cursor:pointer}
+input[type="range"]::-webkit-slider-runnable-track{height:8px;border:1px solid #AFC7D0;border-radius:2px;background:linear-gradient(90deg,#EAF2F5,#C8DCE3)}
+input[type="range"]::-moz-range-track{height:8px;border:1px solid #AFC7D0;border-radius:2px;background:linear-gradient(90deg,#EAF2F5,#C8DCE3)}
+input[type="range"]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:11px;height:13px;margin-top:-3px;border:1px solid #526F79;border-radius:2px;background:#F8FCFD}
+input[type="range"]::-moz-range-thumb{width:9px;height:11px;border:1px solid #526F79;border-radius:2px;background:#F8FCFD}
+input[type="range"]:hover::-webkit-slider-thumb,input[type="range"]:hover::-moz-range-thumb{background:#DCEBF0}
+input[type="range"]:focus-visible{outline:1px dotted var(--accent-dark);outline-offset:2px}
+
+/* Each Pencil HSVA control has its own detailed spectrum. */
+#pHue::-webkit-slider-runnable-track{background:linear-gradient(90deg,#F00 0%,#FF8000 8.33%,#FF0 16.66%,#80FF00 25%,#0F0 33.33%,#00FF80 41.66%,#0FF 50%,#0080FF 58.33%,#00F 66.66%,#8000FF 75%,#F0F 83.33%,#FF0080 91.66%,#F00 100%)}
+#pHue::-moz-range-track{background:linear-gradient(90deg,#F00 0%,#FF8000 8.33%,#FF0 16.66%,#80FF00 25%,#0F0 33.33%,#00FF80 41.66%,#0FF 50%,#0080FF 58.33%,#00F 66.66%,#8000FF 75%,#F0F 83.33%,#FF0080 91.66%,#F00 100%)}
+#pSat::-webkit-slider-runnable-track{height:8px;border:1px solid #AFC7D0;border-radius:2px;background:linear-gradient(90deg,
+  var(--p-gray) 0%,
+  color-mix(in srgb,var(--p-gray) 88%,var(--p-full-sat) 12%) 12%,
+  color-mix(in srgb,var(--p-gray) 75%,var(--p-full-sat) 25%) 25%,
+  color-mix(in srgb,var(--p-gray) 62%,var(--p-full-sat) 38%) 38%,
+  color-mix(in srgb,var(--p-gray) 50%,var(--p-full-sat) 50%) 50%,
+  color-mix(in srgb,var(--p-gray) 35%,var(--p-full-sat) 65%) 65%,
+  color-mix(in srgb,var(--p-gray) 20%,var(--p-full-sat) 80%) 80%,
+  var(--p-full-sat) 100%)}
+#pSat::-moz-range-track{height:8px;border:1px solid #AFC7D0;border-radius:2px;background:linear-gradient(90deg,
+  var(--p-gray) 0%,
+  color-mix(in srgb,var(--p-gray) 88%,var(--p-full-sat) 12%) 12%,
+  color-mix(in srgb,var(--p-gray) 75%,var(--p-full-sat) 25%) 25%,
+  color-mix(in srgb,var(--p-gray) 62%,var(--p-full-sat) 38%) 38%,
+  color-mix(in srgb,var(--p-gray) 50%,var(--p-full-sat) 50%) 50%,
+  color-mix(in srgb,var(--p-gray) 35%,var(--p-full-sat) 65%) 65%,
+  color-mix(in srgb,var(--p-gray) 20%,var(--p-full-sat) 80%) 80%,
+  var(--p-full-sat) 100%)}
+#pVal::-webkit-slider-runnable-track{height:8px;border:1px solid #AFC7D0;border-radius:2px;background:linear-gradient(90deg,
+  #000 0%,
+  color-mix(in srgb,#000 88%,var(--p-full-value) 12%) 12%,
+  color-mix(in srgb,#000 75%,var(--p-full-value) 25%) 25%,
+  color-mix(in srgb,#000 62%,var(--p-full-value) 38%) 38%,
+  color-mix(in srgb,#000 50%,var(--p-full-value) 50%) 50%,
+  color-mix(in srgb,#000 35%,var(--p-full-value) 65%) 65%,
+  color-mix(in srgb,#000 20%,var(--p-full-value) 80%) 80%,
+  var(--p-full-value) 100%)}
+#pVal::-moz-range-track{height:8px;border:1px solid #AFC7D0;border-radius:2px;background:linear-gradient(90deg,
+  #000 0%,
+  color-mix(in srgb,#000 88%,var(--p-full-value) 12%) 12%,
+  color-mix(in srgb,#000 75%,var(--p-full-value) 25%) 25%,
+  color-mix(in srgb,#000 62%,var(--p-full-value) 38%) 38%,
+  color-mix(in srgb,#000 50%,var(--p-full-value) 50%) 50%,
+  color-mix(in srgb,#000 35%,var(--p-full-value) 65%) 65%,
+  color-mix(in srgb,#000 20%,var(--p-full-value) 80%) 80%,
+  var(--p-full-value) 100%)}
+#pAlpha::-webkit-slider-runnable-track{background:linear-gradient(90deg,rgba(var(--p-rgb),0) 0%,rgba(var(--p-rgb),.12) 12%,rgba(var(--p-rgb),.25) 25%,rgba(var(--p-rgb),.38) 38%,rgba(var(--p-rgb),.5) 50%,rgba(var(--p-rgb),.65) 65%,rgba(var(--p-rgb),.82) 82%,rgba(var(--p-rgb),1) 100%),conic-gradient(#D5E0E4 25%,#FFF 0 50%,#D5E0E4 0 75%,#FFF 0);background-size:100% 100%,8px 8px}
+#pAlpha::-moz-range-track{background:linear-gradient(90deg,rgba(var(--p-rgb),0) 0%,rgba(var(--p-rgb),.12) 12%,rgba(var(--p-rgb),.25) 25%,rgba(var(--p-rgb),.38) 38%,rgba(var(--p-rgb),.5) 50%,rgba(var(--p-rgb),.65) 65%,rgba(var(--p-rgb),.82) 82%,rgba(var(--p-rgb),1) 100%),conic-gradient(#D5E0E4 25%,#FFF 0 50%,#D5E0E4 0 75%,#FFF 0);background-size:100% 100%,8px 8px}
+#pHue::-webkit-slider-thumb,#pSat::-webkit-slider-thumb,#pVal::-webkit-slider-thumb,#pAlpha::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:13px;margin-top:-3px;border:1px solid #526F79;border-radius:2px;background:#F8FCFD}
+#pHue::-moz-range-thumb,#pSat::-moz-range-thumb,#pVal::-moz-range-thumb,#pAlpha::-moz-range-thumb{width:9px;height:11px;border:1px solid #526F79;border-radius:2px;background:#F8FCFD}
+
+input[type="number"] { width:65px; }
+input[type="text"] { width:100%; }
+
+.value-row {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 40px;
+  gap:4px;
+  align-items:center;
+}
+
+.value-row output {
+  text-align:right;
+  color:var(--link);
+  font:11px monospace;
+}
+
+.button-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:3px;
+  margin:4px 0;
+}
+
+.button-row button { flex:0 0 auto; }
+
+.two-col {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4px;
+}
+
+#starSpectrum {
+  display:block;
+  width:100%;
+  height:140px;
+  border:1px solid var(--line-dark);
+  touch-action:none;
+  cursor:crosshair;
+}
+
+.spectrum-wrap { position:relative; }
+
+#spectrumCursor {
+  position:absolute;
+  width:9px;
+  height:9px;
+  border:1px solid white;
+  outline:1px solid #536F79;
+  border-radius:50%;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+}
+
+#luminanceBar {
+  display:block;
+  width:100%;
+  height:15px;
+  border:1px solid var(--line-dark);
+  touch-action:none;
+  cursor:crosshair;
+}
+
+#luminanceMarker {
+  height:18px;
+  width:5px;
+  border:1px solid #536F79;
+  background:#F8FCFD;
+  pointer-events:none;
+}
+
+.luminance-row {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 12px;
+  gap:5px;
+  align-items:center;
+  margin-top:4px;
+}
+
+.color-readout {
+  display:flex;
+  gap:5px;
+  align-items:center;
+  margin-top:4px;
+}
+
+.color-chip {
+  width:24px;
+  height:18px;
+  border:1px solid var(--line-dark);
+  flex-shrink:0;
+}
+
+.readout {
+  font:11px monospace;
+  overflow-wrap:anywhere;
+}
+
+#pencilPreview {
+  width:24px;
+  height:18px;
+  border:1px solid var(--line-dark);
+  background-color:white;
+  background-image:linear-gradient(45deg,#ddd 25%,transparent 25%),
+    linear-gradient(-45deg,#ddd 25%,transparent 25%),
+    linear-gradient(45deg,transparent 75%,#ddd 75%),
+    linear-gradient(-45deg,transparent 75%,#ddd 75%);
+  background-size:8px 8px;
+  background-position:0 0,0 4px,4px -4px,-4px 0;
+}
+
+.workspace-toolbar {
+  display:flex;
+  flex-wrap:wrap;
+  gap:3px;
+  align-items:center;
+  padding:4px;
+  border:1px solid #D7E4E8;
+  background:#F2F8FA;
+  margin-bottom:4px;
+}
+
+.toolbar-separator {
+  height:20px;
+  border-left:1px solid var(--line);
+  margin:0 2px;
+}
+
+.workspace-main {
+  min-height:430px;
+  display:grid;
+  place-items:center;
+  overflow:auto;
+  padding:12px;
+  border:1px solid var(--line);
+  background-color:#F8FCFD;
+  background-image:
+    linear-gradient(45deg,#E5EEF1 25%,transparent 25%),
+    linear-gradient(-45deg,#E5EEF1 25%,transparent 25%),
+    linear-gradient(45deg,transparent 75%,#E5EEF1 75%),
+    linear-gradient(-45deg,transparent 75%,#E5EEF1 75%);
+  background-size:16px 16px;
+  background-position:0 0,0 8px,8px -8px,-8px 0;
+}
+
+#canvasHolder {
+  width:min(100%,650px);
+  transform-origin:center center;
+  flex-shrink:0;
+}
+
+#artCanvas {
+  display:block;
+  width:100%;
+  height:auto;
+  border:1px solid #AFC7D0;
+  background:transparent;
+  touch-action:none;
+}
+
+.workspace-footer {
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:4px;
+  padding:4px 1px 0;
+  color:var(--link);
+  font-size:11px;
+}
+
+#statusText { min-height:15px; }
+
+.preset-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:3px;
+}
+
+.preset {
+  min-width:0;
+  min-height:31px;
+  border:1px solid var(--line-dark);
+  background:#F8FCFD;
+  color:var(--link);
+  font-size:11px;
+}
+
+.preset-star {
+  display:block;
+  font-size:17px;
+  line-height:17px;
+}
+
+.check-label {
+  display:flex;
+  gap:5px;
+  align-items:center;
+}
+
+.check-label input { margin:0; }
+
+.small-note {
+  font-size:11px;
+  color:var(--text);
+}
+
+#gradientOptions[hidden] { display:none; }
+
+footer {
+  border-top:1px dotted var(--line);
+  margin-top:5px;
+  padding:4px;
+  text-align:center;
+  color:var(--text);
+}
+
+@media(max-width:850px) {
+  #app { grid-template-columns:220px minmax(0,1fr); }
+  .workspace-main { min-height:350px; }
+}
+
+@media(max-width:650px) {
+  #app { grid-template-columns:1fr; }
+  .sidebar { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
+  .sidebar > .heading { grid-column:1/-1; }
+  .group { margin:0; }
+  .workspace-main { min-height:300px; padding:8px; }
+  #canvasHolder { width:min(100%,520px); }
+}
+
+@media(max-width:430px) {
+  body { font-size:12px; }
+  header h1 { font-size:16px; }
+  .sidebar { grid-template-columns:1fr; }
+  .sidebar > .heading { grid-column:auto; }
+  .workspace { padding:3px; }
+  .workspace-main { min-height:240px; padding:5px; }
+  .workspace-toolbar button { padding:3px 4px; }
+  #starSpectrum { height:125px; }
+  .preset-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    scroll-behavior:auto !important;
+    transition:none !important;
+    animation:none !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>☆ Monbooru Star Studio ☆</h1>
+  <p>『 Shape it. Color it. Make it yours. 』</p>
+</header>
+
+<div id="app">
+
+<aside class="sidebar">
+  <div class="heading">『 Studio Controls 』</div>
+
+  <section class="group">
+    <div class="group-title">☆ Star Geometry</div>
+
+    <label>Points
+      <div class="value-row">
+        <input id="points" type="range" min="3" max="24" value="5">
+        <output id="pointsOut">5</output>
+      </div>
+    </label>
+
+    <label>Outer Radius
+      <div class="value-row">
+        <input id="outerRadius" type="range" min="10" max="48" value="42">
+        <output id="outerRadiusOut">42</output>
+      </div>
+    </label>
+
+    <label>Inner Radius
+      <div class="value-row">
+        <input id="innerRadius" type="range" min="5" max="45" value="19">
+        <output id="innerRadiusOut">19</output>
+      </div>
+    </label>
+
+    <label>Inner Roundness
+      <div class="value-row">
+        <input id="innerRound" type="range" min="0" max="100" value="0">
+        <output id="innerRoundOut">0%</output>
+      </div>
+    </label>
+
+    <label>Outer Roundness
+      <div class="value-row">
+        <input id="outerRound" type="range" min="0" max="100" value="0">
+        <output id="outerRoundOut">0%</output>
+      </div>
+    </label>
+
+    <label>Corner Smoothing
+      <div class="value-row">
+        <input id="smoothing" type="range" min="0" max="100" value="0">
+        <output id="smoothingOut">0%</output>
+      </div>
+    </label>
+
+    <label>Rotation
+      <div class="value-row">
+        <input id="rotation" type="range" min="0" max="360" value="0">
+        <output id="rotationOut">0°</output>
+      </div>
+    </label>
+
+    <label>Outline Width
+      <div class="value-row">
+        <input id="outlineWidth" type="range" min="0" max="15" value="2">
+        <output id="outlineWidthOut">2</output>
+      </div>
+    </label>
+
+    <label>Outline Color
+      <input id="outlineColor" type="text" value="#70868E">
+    </label>
+  </section>
+
+  <section class="group">
+    <div class="group-title">☆ Star Color · Paint Spectrum</div>
+
+    <div class="spectrum-wrap" id="spectrumWrap">
+      <canvas id="starSpectrum" width="320" height="140"></canvas>
+      <div id="spectrumCursor"></div>
+    </div>
+
+    <div class="luminance-row">
+      <canvas id="luminanceBar" width="320" height="15"></canvas>
+      <div id="luminanceMarker"></div>
+    </div>
+
+    <div class="color-readout">
+      <div class="color-chip" id="starChip"></div>
+      <span class="readout" id="starHex">#D94A86</span>
+    </div>
+
+    <label class="check-label">
+      <input id="useGradient" type="checkbox">
+      Gradient Fill
+    </label>
+
+    <div id="gradientOptions" hidden>
+      <label>Second Color
+        <input id="gradientColor" type="text" value="#91B8C5">
+      </label>
+      <label>Gradient Direction
+        <select id="gradientDirection">
+          <option value="vertical">Vertical</option>
+          <option value="horizontal">Horizontal</option>
+          <option value="diagonal">Diagonal</option>
+          <option value="radial">Radial</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="group-title">『 Pencil · HSVA 』</div>
+
+    <div class="color-readout">
+      <div id="pencilPreview"></div>
+      <span class="readout" id="pencilHex">#394B5AFF</span>
+    </div>
+
+    <label>Hue
+      <div class="value-row">
+        <input id="pHue" type="range" min="0" max="360" value="210">
+        <output id="pHueOut">210°</output>
+      </div>
+    </label>
+
+    <label>Saturation
+      <div class="value-row">
+        <input id="pSat" type="range" min="0" max="100" value="35">
+        <output id="pSatOut">35%</output>
+      </div>
+    </label>
+
+    <label>Value
+      <div class="value-row">
+        <input id="pVal" type="range" min="0" max="100" value="35">
+        <output id="pValOut">35%</output>
+      </div>
+    </label>
+
+    <label>Alpha
+      <div class="value-row">
+        <input id="pAlpha" type="range" min="0" max="100" value="100">
+        <output id="pAlphaOut">100%</output>
+      </div>
+    </label>
+
+    <label>Brush Size
+      <div class="value-row">
+        <input id="brushSize" type="range" min="1" max="60" value="5">
+        <output id="brushSizeOut">5</output>
+      </div>
+    </label>
+  </section>
+
+  <section class="group">
+    <div class="group-title">☆ Shape Presets</div>
+    <div class="preset-grid">
+      <button class="preset" data-preset="classic"><span class="preset-star">★</span>Classic</button>
+      <button class="preset" data-preset="soft"><span class="preset-star">✦</span>Soft</button>
+      <button class="preset" data-preset="squircle"><span class="preset-star">✿</span>Squircle</button>
+      <button class="preset" data-preset="sharp"><span class="preset-star">✧</span>Sharp</button>
+      <button class="preset" data-preset="flower"><span class="preset-star">❀</span>Flower</button>
+      <button class="preset" data-preset="burst"><span class="preset-star">✴</span>Burst</button>
+      <button class="preset" data-preset="round"><span class="preset-star">✺</span>Round</button>
+      <button class="preset" data-preset="diamond"><span class="preset-star">◆</span>Diamond</button>
+    </div>
+    <div class="button-row">
+      <button id="randomize">✧ Randomize</button>
+      <button id="resetAll">Reset All</button>
+    </div>
+  </section>
+</aside>
+
+<section class="workspace">
+  <div class="heading">『 Artwork Workspace 』</div>
+
+  <div class="workspace-toolbar">
+    <button id="penTool">✎ Pen</button>
+    <button id="eraserTool">⌫ Eraser</button>
+    <button id="offTool" class="active">Off</button>
+    <span class="toolbar-separator"></span>
+    <button id="undoButton" disabled>↶ Undo</button>
+    <button id="redoButton" disabled>↷ Redo</button>
+    <span class="toolbar-separator"></span>
+    <button id="clearDrawing">Clear Drawing</button>
+  </div>
+
+  <div class="workspace-toolbar">
+    <button id="zoomOut">−</button>
+    <span id="zoomLabel">100%</span>
+    <button id="zoomIn">+</button>
+    <button id="zoomReset">Fit</button>
+    <span class="toolbar-separator"></span>
+    <label class="check-label">
+      <input id="showGrid" type="checkbox" checked>
+      Grid
+    </label>
+    <label class="check-label">
+      <input id="showOutline" type="checkbox" checked>
+      Outline
+    </label>
+  </div>
+
+  <div class="workspace-main" id="workspaceMain">
+    <div id="canvasHolder">
+      <canvas id="artCanvas" width="512" height="512"></canvas>
+    </div>
+  </div>
+
+  <div class="workspace-footer">
+    <span id="statusText">☆ Drawing tool is OFF.</span>
+    <span id="canvasInfo">512 × 512</span>
+  </div>
+
+  <section class="group" style="margin-top:5px">
+    <div class="group-title">『 Export Artwork 』</div>
+    <div class="button-row">
+      <button id="exportPNG">☆ Export PNG</button>
+      <button id="exportSVG">☆ Export SVG</button>
+    </div>
+    <div class="small-note">PNG includes the transparent drawing layer composited over the star. SVG exports the star geometry and embedded drawing.</div>
+  </section>
+</section>
+
+</div>
+
+<footer>☆ Monbooru Star Studio · 『 Make something wonderful 』 ☆</footer>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+
+const canvas = $("artCanvas");
+const ctx = canvas.getContext("2d");
+const spectrum = $("starSpectrum");
+const spectrumCtx = spectrum.getContext("2d");
+const luminance = $("luminanceBar");
+const luminanceCtx = luminance.getContext("2d");
+
+const starColorState = {
+  hue:330,
+  saturation:66,
+  luminance:58,
+  x:330/360,
+  y:1-.66
+};
+
+const pencilColorState = {
+  hue:210,
+  saturation:35,
+  value:35,
+  alpha:100
+};
+
+let tool = "off";
+let drawing = false;
+let currentStroke = null;
+let strokes = [];
+let redoStack = [];
+let zoom = 1;
+let gridVisible = true;
+let outlineVisible = true;
+
+const drawingCanvas = document.createElement("canvas");
+const drawingCtx = drawingCanvas.getContext("2d");
+drawingCanvas.width = canvas.width;
+drawingCanvas.height = canvas.height;
+
+function clamp(v,min,max) {
+  return Math.max(min,Math.min(max,v));
+}
+
+function hsvToRgb(h,s,v) {
+  h = ((h % 360) + 360) % 360;
+  s /= 100;
+  v /= 100;
+
+  const c = v*s;
+  const x = c*(1-Math.abs((h/60)%2-1));
+  const m = v-c;
+  let r=0,g=0,b=0;
+
+  if(h<60) [r,g,b]=[c,x,0];
+  else if(h<120) [r,g,b]=[x,c,0];
+  else if(h<180) [r,g,b]=[0,c,x];
+  else if(h<240) [r,g,b]=[0,x,c];
+  else if(h<300) [r,g,b]=[x,0,c];
+  else [r,g,b]=[c,0,x];
+
+  return {
+    r:Math.round((r+m)*255),
+    g:Math.round((g+m)*255),
+    b:Math.round((b+m)*255)
+  };
+}
+
+function rgbHex(rgb) {
+  return "#"+[rgb.r,rgb.g,rgb.b]
+    .map(v=>v.toString(16).padStart(2,"0"))
+    .join("").toUpperCase();
+}
+
+function getStarColor() {
+  return rgbHex(hsvToRgb(
+    starColorState.hue,
+    starColorState.saturation,
+    starColorState.luminance
+  ));
+}
+
+function getPencilColor() {
+  const c = hsvToRgb(
+    pencilColorState.hue,
+    pencilColorState.saturation,
+    pencilColorState.value
+  );
+  return `rgba(${c.r},${c.g},${c.b},${pencilColorState.alpha/100})`;
+}
+
+function getPencilHex() {
+  const c = hsvToRgb(
+    pencilColorState.hue,
+    pencilColorState.saturation,
+    pencilColorState.value
+  );
+  const alphaByte=clamp(Math.round(pencilColorState.alpha*255/100),0,255);
+  return rgbHex(c)+alphaByte.toString(16).padStart(2,"0").toUpperCase();
+}
+
+function renderSpectrum() {
+  const w=spectrum.width;
+  const h=spectrum.height;
+  const data=spectrumCtx.createImageData(w,h);
+
+  for(let y=0;y<h;y++) {
+    for(let x=0;x<w;x++) {
+      const c=hsvToRgb(
+        x/(w-1)*360,
+        100-y/(h-1)*100,
+        starColorState.luminance
+      );
+      const i=(y*w+x)*4;
+      data.data[i]=c.r;
+      data.data[i+1]=c.g;
+      data.data[i+2]=c.b;
+      data.data[i+3]=255;
+    }
+  }
+
+  spectrumCtx.putImageData(data,0,0);
+  updateSpectrumCursor();
+}
+
+function renderLuminance() {
+  const w=luminance.width;
+  const h=luminance.height;
+  const data=luminanceCtx.createImageData(w,h);
+
+  for(let x=0;x<w;x++) {
+    const c=hsvToRgb(
+      starColorState.hue,
+      starColorState.saturation,
+      100-x/(w-1)*100
+    );
+    for(let y=0;y<h;y++) {
+      const i=(y*w+x)*4;
+      data.data[i]=c.r;
+      data.data[i+1]=c.g;
+      data.data[i+2]=c.b;
+      data.data[i+3]=255;
+    }
+  }
+
+  luminanceCtx.putImageData(data,0,0);
+  $("luminanceMarker").style.background =
+    starColorState.luminance>55 ? "#273D45" : "#F8FCFD";
+}
+
+function updateSpectrumCursor() {
+  const rect=spectrum.getBoundingClientRect();
+  $("spectrumCursor").style.left=(starColorState.x*rect.width)+"px";
+  $("spectrumCursor").style.top=(starColorState.y*rect.height)+"px";
+}
+
+function updateStarReadout() {
+  const color=getStarColor();
+  $("starChip").style.background=color;
+  $("starHex").textContent=color;
+}
+
+function updatePencilReadout() {
+  const rgb=hsvToRgb(pencilColorState.hue,pencilColorState.saturation,pencilColorState.value);
+  const root=document.documentElement;
+  const neutral=Math.round(pencilColorState.value*2.55);
+  const fullSat=hsvToRgb(pencilColorState.hue,100,pencilColorState.value);
+  const fullValue=hsvToRgb(pencilColorState.hue,pencilColorState.saturation,100);
+  root.style.setProperty("--p-hue",pencilColorState.hue);
+  root.style.setProperty("--p-sat",pencilColorState.saturation+"%");
+  root.style.setProperty("--p-lightness",pencilColorState.value+"%");
+  root.style.setProperty("--p-gray",`rgb(${neutral},${neutral},${neutral})`);
+  root.style.setProperty("--p-full-sat",`rgb(${fullSat.r},${fullSat.g},${fullSat.b})`);
+  root.style.setProperty("--p-full-value",`rgb(${fullValue.r},${fullValue.g},${fullValue.b})`);
+  root.style.setProperty("--p-rgb",`${rgb.r},${rgb.g},${rgb.b}`);
+  $("pencilPreview").style.backgroundColor=getPencilColor();
+  $("pencilHex").textContent=getPencilHex();
+  $("pHueOut").textContent=pencilColorState.hue+"°";
+  $("pSatOut").textContent=pencilColorState.saturation+"%";
+  $("pValOut").textContent=pencilColorState.value+"%";
+  $("pAlphaOut").textContent=pencilColorState.alpha+"%";
+}
+function updatePencilState() {
+  pencilColorState.hue=Number($("pHue").value);
+  pencilColorState.saturation=Number($("pSat").value);
+  pencilColorState.value=Number($("pVal").value);
+  pencilColorState.alpha=Number($("pAlpha").value);
+  updatePencilReadout();
+}
+
+function updateOutputs() {
+  const pairs = [
+    ["points","pointsOut",""],
+    ["outerRadius","outerRadiusOut",""],
+    ["innerRadius","innerRadiusOut",""],
+    ["innerRound","innerRoundOut","%"],
+    ["outerRound","outerRoundOut","%"],
+    ["smoothing","smoothingOut","%"],
+    ["rotation","rotationOut","°"],
+    ["outlineWidth","outlineWidthOut",""]
+  ];
+
+  pairs.forEach(([id,out,suffix])=>{
+    $(out).textContent=$(id).value+suffix;
+  });
+
+  $("brushSizeOut").textContent=$("brushSize").value;
+}
+
+function getSettings() {
+  return {
+    points:clamp(Number($("points").value),3,24),
+    outer:Number($("outerRadius").value),
+    inner:Number($("innerRadius").value),
+    innerRound:Number($("innerRound").value)/100,
+    outerRound:Number($("outerRound").value)/100,
+    smoothing:Number($("smoothing").value)/100,
+    rotation:Number($("rotation").value)*Math.PI/180,
+    outlineWidth:Number($("outlineWidth").value),
+    outlineColor:$("outlineColor").value
+  };
+}
+
+/*
+  Rounded star path:
+  Each vertex has an incoming and outgoing point.
+  Quadratic curves connect them around the corner.
+  Inner and outer corners use separate rounding values.
+*/
+function getStarCorners(size) {
+  const s=getSettings(),cx=size/2,cy=size/2;
+  const outer=size*s.outer/100,inner=size*s.inner/100,vertices=[];
+  for(let i=0;i<s.points*2;i++){
+    const angle=s.rotation-Math.PI/2+i*Math.PI/s.points;
+    const radius=i%2===0?outer:inner;
+    vertices.push({x:cx+Math.cos(angle)*radius,y:cy+Math.sin(angle)*radius,isOuter:i%2===0});
+  }
+  return vertices.map((v,i)=>{
+    const prev=vertices[(i-1+vertices.length)%vertices.length],next=vertices[(i+1)%vertices.length];
+    const li=Math.hypot(v.x-prev.x,v.y-prev.y),lo=Math.hypot(next.x-v.x,next.y-v.y);
+    const round=v.isOuter?s.outerRound:s.innerRound;
+    const amount=clamp(round*.46+s.smoothing*.46,0,.92);
+    const cut=Math.min(li*.48,lo*.48,Math.min(li,lo)*amount);
+    return {vertex:v,
+      incoming:{x:v.x+(prev.x-v.x)*cut/(li||1),y:v.y+(prev.y-v.y)*cut/(li||1)},
+      outgoing:{x:v.x+(next.x-v.x)*cut/(lo||1),y:v.y+(next.y-v.y)*cut/(lo||1)}};
+  });
+}
+function starPathData(size) {
+  const c=getStarCorners(size),f=n=>Number(n.toFixed(3)),cmd=[`M ${f(c[0].outgoing.x)} ${f(c[0].outgoing.y)}`];
+  for(let i=1;i<c.length;i++){const v=c[i];cmd.push(`L ${f(v.incoming.x)} ${f(v.incoming.y)}`,`Q ${f(v.vertex.x)} ${f(v.vertex.y)} ${f(v.outgoing.x)} ${f(v.outgoing.y)}`);}
+  const first=c[0];cmd.push(`L ${f(first.incoming.x)} ${f(first.incoming.y)}`,`Q ${f(first.vertex.x)} ${f(first.vertex.y)} ${f(first.outgoing.x)} ${f(first.outgoing.y)} Z`);
+  return cmd.join(" ");
+}
+function createStarPath(context,size) {
+  const c=getStarCorners(size);context.beginPath();context.moveTo(c[0].outgoing.x,c[0].outgoing.y);
+  for(let i=1;i<c.length;i++){const v=c[i];context.lineTo(v.incoming.x,v.incoming.y);context.quadraticCurveTo(v.vertex.x,v.vertex.y,v.outgoing.x,v.outgoing.y);}
+  const f=c[0];context.lineTo(f.incoming.x,f.incoming.y);context.quadraticCurveTo(f.vertex.x,f.vertex.y,f.outgoing.x,f.outgoing.y);context.closePath();
+}
+function makeStarFill(context,size) {
+  const color=getStarColor();
+
+  if(!$("useGradient").checked) return color;
+
+  const second=$("gradientColor").value || "#91B8C5";
+  const direction=$("gradientDirection").value;
+
+  let gradient;
+
+  if(direction==="horizontal") {
+    gradient=context.createLinearGradient(0,0,size,0);
+  } else if(direction==="diagonal") {
+    gradient=context.createLinearGradient(0,0,size,size);
+  } else if(direction==="radial") {
+    gradient=context.createRadialGradient(
+      size/2,size/2,0,size/2,size/2,size*.7
+    );
+  } else {
+    gradient=context.createLinearGradient(0,0,0,size);
+  }
+
+  gradient.addColorStop(0,color);
+  gradient.addColorStop(1,second);
+  return gradient;
+}
+
+function drawStar(context,size) {
+  const settings=getSettings();
+  context.save();
+  createStarPath(context,size);
+  context.fillStyle=makeStarFill(context,size);
+  context.fill();
+
+  if(outlineVisible && settings.outlineWidth>0) {
+    context.lineWidth=settings.outlineWidth*size/512;
+    context.strokeStyle=settings.outlineColor;
+    context.stroke();
+  }
+
+  context.restore();
+}
+
+function drawOneStroke(context,stroke) {
+  if(!stroke.points.length) return;
+
+  context.save();
+  context.globalCompositeOperation=
+    stroke.tool==="eraser"?"destination-out":"source-over";
+  context.strokeStyle=stroke.color;
+  context.fillStyle=stroke.color;
+  context.lineWidth=stroke.size;
+  context.lineCap="round";
+  context.lineJoin="round";
+
+  const p=stroke.points;
+  context.beginPath();
+  context.moveTo(p[0].x,p[0].y);
+
+  if(p.length===1) {
+    context.arc(p[0].x,p[0].y,Math.max(.5,stroke.size/2),0,Math.PI*2);
+    context.fill();
+  } else {
+    for(let i=1;i<p.length;i++) {
+      context.lineTo(p[i].x,p[i].y);
+    }
+  }
+
+  if(p.length>1) context.stroke();
+  context.restore();
+}
+
+function redrawDrawing() {
+  drawingCtx.clearRect(0,0,drawingCanvas.width,drawingCanvas.height);
+
+  strokes.forEach(stroke=>drawOneStroke(drawingCtx,stroke));
+  if(currentStroke) drawOneStroke(drawingCtx,currentStroke);
+}
+
+function drawArtwork() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  drawStar(ctx,canvas.width);
+  redrawDrawing();
+  ctx.drawImage(drawingCanvas,0,0);
+}
+
+function refresh() {
+  updateOutputs();
+  drawArtwork();
+}
+
+function setTool(next) {
+  tool=next;
+  $("penTool").classList.toggle("active",tool==="pen");
+  $("eraserTool").classList.toggle("active",tool==="eraser");
+  $("offTool").classList.toggle("active",tool==="off");
+
+  $("statusText").textContent=
+    tool==="off"?"☆ Drawing tool OFF":
+    tool==="pen"?"☆ Pen selected":
+    "☆ Eraser selected";
+}
+
+function positionFromEvent(event) {
+  const rect=canvas.getBoundingClientRect();
+  return {
+    x:(event.clientX-rect.left)*canvas.width/rect.width,
+    y:(event.clientY-rect.top)*canvas.height/rect.height
+  };
+}
+
+canvas.addEventListener("pointerdown",event=>{
+  if(tool==="off") return;
+
+  event.preventDefault();
+  canvas.setPointerCapture(event.pointerId);
+  drawing=true;
+
+  currentStroke={
+    tool,
+    size:Number($("brushSize").value)*
+      canvas.width/canvas.getBoundingClientRect().width,
+    color:tool==="pen"?getPencilColor():"rgba(0,0,0,1)",
+    points:[positionFromEvent(event)]
+  };
+
+  drawArtwork();
+});
+
+canvas.addEventListener("pointermove",event=>{
+  if(!drawing||!currentStroke) return;
+  currentStroke.points.push(positionFromEvent(event));
+  drawArtwork();
+});
+
+function finishStroke() {
+  if(!drawing||!currentStroke) return;
+
+  drawing=false;
+  strokes.push(currentStroke);
+  currentStroke=null;
+  redoStack=[];
+  redrawDrawing();
+  drawArtwork();
+  updateHistoryButtons();
+}
+
+canvas.addEventListener("pointerup",finishStroke);
+canvas.addEventListener("pointercancel",finishStroke);
+canvas.addEventListener("lostpointercapture",finishStroke);
+
+function updateHistoryButtons() {
+  $("undoButton").disabled=strokes.length===0;
+  $("redoButton").disabled=redoStack.length===0;
+}
+
+function undo() {
+  if(!strokes.length) return;
+  redoStack.push(strokes.pop());
+  redrawDrawing();
+  drawArtwork();
+  updateHistoryButtons();
+}
+
+function redo() {
+  if(!redoStack.length) return;
+  strokes.push(redoStack.pop());
+  redrawDrawing();
+  drawArtwork();
+  updateHistoryButtons();
+}
+
+$("undoButton").addEventListener("click",undo);
+$("redoButton").addEventListener("click",redo);
+
+function setSpectrumPosition(event) {
+  const rect=spectrum.getBoundingClientRect();
+  const x=clamp((event.clientX-rect.left)/rect.width,0,1);
+  const y=clamp((event.clientY-rect.top)/rect.height,0,1);
+
+  starColorState.x=x;
+  starColorState.y=y;
+  starColorState.hue=x*360;
+  starColorState.saturation=(1-y)*100;
+
+  renderSpectrum();
+  renderLuminance();
+  updateStarReadout();
+  drawArtwork();
+}
+
+let spectrumDrag=false;
+
+spectrum.addEventListener("pointerdown",event=>{
+  spectrumDrag=true;
+  spectrum.setPointerCapture(event.pointerId);
+  setSpectrumPosition(event);
+});
+
+spectrum.addEventListener("pointermove",event=>{
+  if(spectrumDrag) setSpectrumPosition(event);
+});
+
+spectrum.addEventListener("pointerup",()=>spectrumDrag=false);
+spectrum.addEventListener("pointercancel",()=>spectrumDrag=false);
+
+function setLuminancePosition(event) {
+  const rect=luminance.getBoundingClientRect();
+  const x=clamp((event.clientX-rect.left)/rect.width,0,1);
+  starColorState.luminance=(1-x)*100;
+
+  renderSpectrum();
+  renderLuminance();
+  updateStarReadout();
+  drawArtwork();
+}
+
+let lumDrag=false;
+
+luminance.addEventListener("pointerdown",event=>{
+  lumDrag=true;
+  luminance.setPointerCapture(event.pointerId);
+  setLuminancePosition(event);
+});
+
+luminance.addEventListener("pointermove",event=>{
+  if(lumDrag) setLuminancePosition(event);
+});
+
+luminance.addEventListener("pointerup",()=>lumDrag=false);
+luminance.addEventListener("pointercancel",()=>lumDrag=false);
+
+[
+  "points","outerRadius","innerRadius","innerRound","outerRound",
+  "smoothing","rotation","outlineWidth","outlineColor",
+  "gradientColor","gradientDirection"
+].forEach(id=>{
+  $(id).addEventListener("input",refresh);
+});
+
+$("useGradient").addEventListener("change",()=>{
+  $("gradientOptions").hidden=!$("useGradient").checked;
+  drawArtwork();
+});
+
+["pHue","pSat","pVal","pAlpha"].forEach(id=>{
+  $(id).addEventListener("input",()=>{
+    pencilColorState.hue=Number($("pHue").value);
+    pencilColorState.saturation=Number($("pSat").value);
+    pencilColorState.value=Number($("pVal").value);
+    pencilColorState.alpha=Number($("pAlpha").value);
+    updatePencilReadout();
+  });
+});
+
+$("penTool").addEventListener("click",()=>setTool("pen"));
+$("eraserTool").addEventListener("click",()=>setTool("eraser"));
+$("offTool").addEventListener("click",()=>setTool("off"));
+
+$("clearDrawing").addEventListener("click",()=>{
+  strokes=[];
+  redoStack=[];
+  currentStroke=null;
+  redrawDrawing();
+  drawArtwork();
+  updateHistoryButtons();
+});
+
+$("showOutline").addEventListener("change",()=>{
+  outlineVisible=$("showOutline").checked;
+  drawArtwork();
+});
+
+$("showGrid").addEventListener("change",()=>{
+  gridVisible=$("showGrid").checked;
+  $("workspaceMain").style.backgroundImage=gridVisible?
+    `linear-gradient(45deg,#E5EEF1 25%,transparent 25%),
+     linear-gradient(-45deg,#E5EEF1 25%,transparent 25%),
+     linear-gradient(45deg,transparent 75%,#E5EEF1 75%),
+     linear-gradient(-45deg,transparent 75%,#E5EEF1 75%)`:
+    "none";
+  $("workspaceMain").style.backgroundColor="#F8FCFD";
+});
+
+function setZoom(value) {
+  zoom=clamp(value,.25,2);
+  $("canvasHolder").style.width=`${Math.round(650*zoom)}px`;
+  $("zoomLabel").textContent=Math.round(zoom*100)+"%";
+}
+
+$("zoomIn").addEventListener("click",()=>setZoom(zoom+.1));
+$("zoomOut").addEventListener("click",()=>setZoom(zoom-.1));
+$("zoomReset").addEventListener("click",()=>setZoom(1));
+
+const presets={
+  classic:{points:5,outer:42,inner:19,ir:0,or:0,sm:0},
+  soft:{points:5,outer:42,inner:19,ir:25,or:35,sm:10},
+  squircle:{points:5,outer:42,inner:19,ir:90,or:90,sm:100},
+  sharp:{points:8,outer:43,inner:15,ir:0,or:0,sm:0},
+  flower:{points:8,outer:42,inner:27,ir:35,or:90,sm:55},
+  burst:{points:12,outer:45,inner:10,ir:0,or:20,sm:0},
+  round:{points:5,outer:42,inner:23,ir:100,or:100,sm:75},
+  diamond:{points:4,outer:45,inner:20,ir:0,or:0,sm:0}
+};
+
+function applyPreset(preset) {
+  $("points").value=preset.points;
+  $("outerRadius").value=preset.outer;
+  $("innerRadius").value=preset.inner;
+  $("innerRound").value=preset.ir;
+  $("outerRound").value=preset.or;
+  $("smoothing").value=preset.sm;
+  refresh();
+}
+
+document.querySelectorAll("[data-preset]").forEach(button=>{
+  button.addEventListener("click",()=>{
+    applyPreset(presets[button.dataset.preset]);
+  });
+});
+
+$("randomize").addEventListener("click",()=>{
+  $("points").value=Math.floor(Math.random()*10)+4;
+  $("outerRadius").value=Math.floor(Math.random()*16)+32;
+  $("innerRadius").value=Math.floor(Math.random()*25)+10;
+  $("innerRound").value=Math.floor(Math.random()*101);
+  $("outerRound").value=Math.floor(Math.random()*101);
+  $("smoothing").value=Math.floor(Math.random()*101);
+  $("rotation").value=Math.floor(Math.random()*361);
+
+  starColorState.hue=Math.random()*360;
+  starColorState.saturation=35+Math.random()*65;
+  starColorState.luminance=35+Math.random()*45;
+  starColorState.x=starColorState.hue/360;
+  starColorState.y=1-starColorState.saturation/100;
+
+  renderSpectrum();
+  renderLuminance();
+  updateStarReadout();
+  refresh();
+});
+
+$("resetAll").addEventListener("click",()=>{
+  applyPreset(presets.classic);
+
+  $("rotation").value=0;
+  $("outlineWidth").value=2;
+  $("outlineColor").value="#70868E";
+  $("useGradient").checked=false;
+  $("gradientOptions").hidden=true;
+  $("gradientColor").value="#91B8C5";
+  $("gradientDirection").value="vertical";
+
+  starColorState.hue=330;
+  starColorState.saturation=66;
+  starColorState.luminance=58;
+  starColorState.x=330/360;
+  starColorState.y=1-.66;
+
+  pencilColorState.hue=210;
+  pencilColorState.saturation=35;
+  pencilColorState.value=35;
+  pencilColorState.alpha=100;
+
+  $("pHue").value=210;
+  $("pSat").value=35;
+  $("pVal").value=35;
+  $("pAlpha").value=100;
+  $("brushSize").value=5;
+  $("showGrid").checked=true;
+  $("showOutline").checked=true;
+  outlineVisible=true;
+  gridVisible=true;
+  $("workspaceMain").style.backgroundImage="";
+  $("workspaceMain").style.backgroundColor="#F8FCFD";
+  setZoom(1);
+
+  strokes=[];
+  redoStack=[];
+  setTool("off");
+  renderSpectrum();
+  renderLuminance();
+  updateStarReadout();
+  updatePencilReadout();
+  refresh();
+  updateHistoryButtons();
+});
+
+function exportCanvas() {
+  const output=document.createElement("canvas");
+  output.width=canvas.width;
+  output.height=canvas.height;
+  const out=output.getContext("2d");
+
+  drawStar(out,output.width);
+  out.drawImage(drawingCanvas,0,0);
+
+  return output;
+}
+
+$("exportPNG").addEventListener("click",()=>{
+  const output=exportCanvas();
+  const link=document.createElement("a");
+  link.download="monbooru-star.png";
+  link.href=output.toDataURL("image/png");
+  link.click();
+});
+
+$("exportSVG").addEventListener("click",()=>{
+  const size=512,settings=getSettings(),path=starPathData(size);
+  const first=getStarColor();
+  const second=/^#[0-9a-f]{6}$/i.test($("gradientColor").value)?$("gradientColor").value:"#91B8C5";
+  const outline=/^#[0-9a-f]{6}$/i.test(settings.outlineColor)?settings.outlineColor:"#70868E";
+  const drawingData=drawingCanvas.toDataURL("image/png");
+  let defs="",fill=first;
+  if($("useGradient").checked){
+    const direction=$("gradientDirection").value;
+    if(direction==="radial"){
+      defs=`<radialGradient id="starGradient" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="${first}"/><stop offset="100%" stop-color="${second}"/></radialGradient>`;
+    }else{
+      let coords='x1="0%" y1="0%" x2="0%" y2="100%"';
+      if(direction==="horizontal")coords='x1="0%" y1="0%" x2="100%" y2="0%"';
+      if(direction==="diagonal")coords='x1="0%" y1="0%" x2="100%" y2="100%"';
+      defs=`<linearGradient id="starGradient" ${coords}><stop offset="0%" stop-color="${first}"/><stop offset="100%" stop-color="${second}"/></linearGradient>`;
+    }
+    fill="url(#starGradient)";
+  }
+  const stroke=outlineVisible&&settings.outlineWidth>0?` stroke="${outline}" stroke-width="${settings.outlineWidth}" stroke-linejoin="round"`:"";
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" viewBox="0 0 512 512"><defs>${defs}</defs><path d="${path}" fill="${fill}"${stroke}/><image x="0" y="0" width="512" height="512" href="${drawingData}" xlink:href="${drawingData}"/></svg>`;
+  const blob=new Blob([svg],{type:"image/svg+xml;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");
+  link.href=url;link.download="monbooru-star.svg";document.body.appendChild(link);link.click();link.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+
+window.addEventListener("resize",updateSpectrumCursor);
+
+renderSpectrum();
+renderLuminance();
+updateStarReadout();
+updatePencilReadout();
+updateOutputs();
+setTool("off");
+setZoom(1);
+drawArtwork();
+updateHistoryButtons();
+</script>
+</body>
+</html>
