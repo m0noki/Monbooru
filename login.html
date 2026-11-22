@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="/favicon.png">
+
+<style>
+
+@font-face {
+    font-family: "07LightNovelPop";
+    src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/LightNovelPOPv2.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "07Yasashisa7";
+    src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/07%E3%82%84%E3%81%95%E3%81%97%E3%81%95%E3%82%B4%E3%82%B7%E3%83%83%E3%82%AF%E3%83%9C%E3%83%BC%E3%83%AB%E3%83%89.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "07LogoTypeGothic7";
+    src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/07LogoTypeGothic7.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+*,
+*::before,
+*::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    -webkit-tap-highlight-color: rgba(188, 216, 222, 0.5);
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: auto;
+
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+html, body * {
+    cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1031.png") 32 32, auto !important;
+}
+
+a, button, select {
+   cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1030.png") 32 32, auto !important;
+}
+
+textarea, input[type="text"], p, h1, h2, {
+   cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1047.png") 32 32, auto !important;
+}
+
+.pagedoll {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 99999;
+}
+
+body {
+    position: relative;
+    background-color: #EDF4F7;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M-2 2L2 -2M0 8L8 0M6 10L10 6M-2 6L2 10M0 0L8 8M6 -2L10 2' stroke='%23DAE7EB' stroke-width='3'/%3E%3C/svg%3E");
+    color: #8FACB5;
+    font-family: "07Yasashisa7", sans-serif;
+    font-size: 12px;
+    line-height: 3;
+}
+
+div {
+    box-sizing: border-box;
+    padding: 2px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #70868E;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: bold;
+    margin: 2px 0;
+    padding: 2px;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+p {
+    color: #8FACB5;
+    margin: 2px 0;
+}
+
+.text { display: inline-block; animation: bounce2 0.5s steps(2) infinite; }
+
+@keyframes bounce2 {
+    0%, 100% {
+        transform: translateY(5px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+a {
+    color: #70868E;
+    text-decoration: underline;
+    font-family: "07LightNovelPop", sans-serif;
+}
+
+a:hover {
+    color: #8FACB5;
+    text-decoration: none;
+}
+
+hr {
+    border: 0;
+    border-top: 1px ridge #70868E;
+    margin: 2px 0;
+}
+
+ul, ol {
+    margin: 2px 0;
+    padding-left: 18px;
+}
+
+ul {
+    list-style-type: "☆ ";
+}
+
+details {
+    padding: 2px;
+}
+
+summary {
+    display: list-item;
+    list-style-position: inside;
+    list-style-type: disclosure-closed !important;
+}
+
+details[open] summary {
+    list-style-type: disclosure-open !important;
+}
+
+summary {
+    color: #70868E;
+    cursor: pointer;
+    font-weight: bold;
+    list-style-type: "★ ";
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #DAE7EB;
+    padding: 2px;
+    text-align: left;
+}
+
+th {
+    background-color: #DAE7EB;
+    color: #70868E;
+}
+
+code, pre {
+    background-color: #DAE7EB;
+    color: #70868E;
+    font-family: monospace;
+}
+
+code, pre {
+    padding: 2px;
+}
+
+pre {
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+input, textarea, select, button {
+    box-sizing: border-box;
+    color: #70868E;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+::placeholder { opacity: 0.5; }
+
+textarea { aspect-ratio: 64 / 7; width: 100%; }
+
+    @media screen and (max-width: 599px) {
+
+    body {
+        font-size: 12px;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    h1 {
+        font-size: 19px;
+    }
+
+    h2 {
+        font-size: 17px;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+
+    p, li {
+        overflow-wrap: break-word;
+    }
+
+    ul, ol {
+        padding-left: 16px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    input, textarea, select, button {
+        max-width: 100%;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    .pagedoll {
+        max-width: 85px;
+        max-height: 110px;
+    }
+
+    
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+}
+
+/* IPADS */
+@media screen and (min-width: 600px) and (max-width: 899px) {
+
+    body {
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 21px;
+    }
+
+    h2 {
+        font-size: 19px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .pagedoll {
+        max-width: 120px;
+    }
+
+    
+
+    table {
+        max-width: 100%;
+    }
+}
+
+/* TABLETS */
+@media screen and (min-width: 900px) and (max-width: 1199px) {
+
+    body {
+        font-size: 13px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .pagedoll {
+        max-width: 150px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* LARGE DESKTOPS */
+@media screen and (min-width: 1200px) and (max-width: 1599px) {
+
+    body {
+        font-size: 12px;
+    }
+
+    .pagedoll {
+        max-width: 180px;
+    }
+}
+
+/* ULTRA-LARGE PCS */
+@media screen and (min-width: 1600px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    p, li {
+        line-height: 1.6;
+    }
+
+    .pagedoll {
+        max-width: 230px;
+    }
+
+    
+    }
+}
+    
+</style>
+
+</head>
+<body style="text-align:center;">
+
+<h2>Log Into Your Account!</h2>
+
+<input type="text" placeholder="Username...">
+<br>
+<input type="password" placeholder="Password...">
+<br>
+<a href="reset-password">Forgot Password?</a>
+<br>
+<button id="login">Log In!</button>
+
+<br>
+
+<div style="line-height:1;">
+
+<span style="
+   font-family: '07Yasashisa7';
+   ">
+   
+   ★ Tip! If You Can't Find Your Existing Account And Cannot Login - You Might As Well Create A <a href="special-registry">Star Alt Account</a>, Make Sure You Save Your Account's Details. ★
+   
+   </span>
+
+<br>
+<br>
+
+<span class="text" style="
+   font-family: '07Yasashisa7'; 
+   color: hotpink;
+   ">
+   
+   It's Free!
+   
+   </span>
+
+</div>
+
+<details>
+
+<summary>Account Options</summary>
+
+<ul style="list-style: none; line-height: 1.5;">
+
+<li>Reset Password -> <a href="reset-pswrd">Reset Password ᯓ★</a></li>
+<li>New Password -> <a href="new-passkey">+ New Passkey ᯓ★</a></li>
+</ul>
+
+</details>
+
+<hr>
+
+<img src="https://static.wikia.nocookie.net/luckystar/images/f/fe/Konata-san2.png/revision/latest?cb=20240612064611" class="pagedoll">
+
+
+
+<script>
+document.getElementById("login").addEventListener("click", function () {
+
+    document.open();
+    document.write(`<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Let's Verify If It's You!</title>
+
+<style>
+@font-face {
+    font-family: "07Yasashisa7";
+    src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/07%E3%82%84%E3%81%95%E3%81%97%E3%81%95%E3%82%B4%E3%82%B7%E3%83%83%E3%82%AF%E3%83%9C%E3%83%BC%E3%83%AB%E3%83%89.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    background: #FFFFFF;
+    color: #000000;
+    font-family: "07Yasashisa7", sans-serif;
+    font-size: 14px;
+    line-height: 1;
+}
+
+/* Original custom cursors */
+
+html, body, body * {
+    cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1031.png") 32 32, auto !important;
+}
+
+a, button, summary, label, input {
+    cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1030.png") 32 32, auto !important;
+}
+
+p, h1, h2, h3, li {
+    cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1047.png") 32 32, auto !important;
+}
+
+#verificationScreen {
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    background: #FFFFFF;
+    color: #000000;
+}
+
+h1, h2, h3, p, summary, li, label {
+    color: #000000;
+    font-family: "07Yasashisa7", sans-serif;
+}
+
+h1 {
+    font-size: 27px;
+    margin: 0 0 12px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+p {
+    margin: 8px 0;
+}
+
+details {
+    margin: 12px 0;
+}
+
+summary {
+    cursor: pointer;
+}
+
+.question {
+    margin: 18px 0;
+}
+
+.answer-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.answer-options label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+#verificationResult {
+    margin-top: 16px;
+}
+
+@media screen and (max-width: 599px) {
+    #verificationScreen {
+        padding: 12px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+}
+</style>
+</head>
+
+<body>
+<main id="verificationScreen">
+
+    <h1>Let's Verify If It's You!</h1>
+
+    <p>
+        Before continuing, we'd like to make sure you're familiar
+        with this account. These questions help confirm that you
+        recognize the account and its registration details.
+        Answer each question as accurately as possible.
+    </p>
+
+    <details>
+        <summary>Summary of Questions</summary>
+        <ul>
+            <li>Did you register this account?</li>
+            <li>Do you recognize the username?</li>
+            <li>Do you remember your account password?</li>
+            <li>Do you recognize the account's registration details?</li>
+        </ul>
+    </details>
+
+    <div id="questions"></div>
+
+    <p>
+        <button type="button" id="submitVerification">Submit</button>
+        <br>
+        <a href="eldex">I don't think I can awnser right now :(</a>
+    </p>
+
+    <div id="verificationResult" aria-live="polite"></div>
+
+    <div
+        class="cf-turnstile"
+        data-sitekey="0x4AAAAAAGMqzNXmIzNozXMG">
+    </div>
+
+</main>
+
+<script>
+const questions = [
+    "Did you register this account?",
+    "Do you recognize the username?",
+    "Do you remember your account password?",
+    "Do you recognize the account's registration details?"
+];
+
+const answers = {};
+const container = document.getElementById("questions");
+
+questions.forEach((question, index) => {
+    const questionElement = document.createElement("div");
+    questionElement.className = "question";
+
+    questionElement.innerHTML = \`
+        <p>\${index + 1}. \${question}</p>
+
+        <div class="answer-options">
+            \${["Yes", "No", "Maybe", "I Forgot"].map(answer => \`
+                <label>
+                    <input
+                        type="radio"
+                        name="q\${index}"
+                        value="\${answer}">
+                    \${answer}
+                </label>
+            \`).join("")}
+        </div>
+    \`;
+
+    container.appendChild(questionElement);
+});
+
+container.addEventListener("change", function(event) {
+    if (event.target.type !== "radio") return;
+
+    answers[event.target.name] = event.target.value;
+});
+
+document.getElementById("submitVerification").addEventListener("click", function() {
+    const result = document.getElementById("verificationResult");
+
+    const allAnswered = questions.every(
+        (_, index) => answers["q" + index]
+    );
+
+    if (!allAnswered) {
+        result.innerHTML = "<p>Please answer all questions before submitting.</p>";
+        return;
+    }
+
+    if (answers.q0 === "No") {
+        result.innerHTML = \`
+            <h2>Account Not Registered?</h2>
+
+            <p>
+                It looks like you may not have registered this account...
+                You can create an account using the registration page!
+            </p>
+
+            <h3>☆ Registration Tips</h3>
+
+            <ul>
+                <li>Choose a username you can remember.</li>
+                <li>Keep your account details somewhere safe.</li>
+                <li>Use a secure, unique password.</li>
+            </ul>
+
+            <p>
+                You can also create a
+                <a href="special-registry">Star Alt Account!</a>
+            </p>
+        \`;
+        return;
+    }
+
+    const allYes = questions.every(
+        (_, index) => answers["q" + index] === "Yes"
+    );
+
+    if (allYes) {
+        result.innerHTML = \`
+            <h2>Verification Questions Completed!</h2>
+
+            <p>
+                Thank you for answering all the questions!
+                You can return to the homepage.
+            </p>
+
+            <a href="eldex">← Back to Homepage</a>
+        \`;
+        return;
+    }
+
+    result.innerHTML = \`
+        <p>
+            Your answers were submitted, but they do not meet
+            the requirements for this verification! :(
+        </p>
+    \`;
+});
+
+/* Load Cloudflare Turnstile after the page is created. */
+<\/script>
+
+<script
+    src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+    async
+    defer>
+<\/script>
+
+</body>
+</html>`);
+    document.close();
+
+});
+</script>
+
+
+
+</body>
+</html>
+
+
