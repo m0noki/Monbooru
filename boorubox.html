@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/png" href="favicon-cat.v2.png">
+<link rel="apple-touch-icon" href="favicon-cat.v2.png">
+<link rel="apple-touch-icon-precomposed" href="favicon-cat.v2.png">
+
+<style>
+
+@font-face {
+    font-family: "07LightNovelPop";
+    src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/LightNovelPOPv2.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+  font-family: "07Nikumaru7";
+  src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/07Nikumaru7.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+    font-family: "07LogoTypeGothic7";
+    src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/07LogoTypeGothic7.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+*,
+*::before,
+*::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    -webkit-tap-highlight-color: rgba(188, 216, 222, 0.5);
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: auto;
+
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+html, body * {
+    cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1031.png") 32 32, auto !important;
+}
+
+a, button, select {
+   cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1030.png") 32 32, auto !important;
+}
+
+textarea, input[type="text"], p, h1, h2, {
+   cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1047.png") 32 32, auto !important;
+}
+
+.pagedoll {
+    position: absolute !important;
+    float: none !important;
+    display: block;
+    width: clamp(300px, 40vw, 559px) !important;
+    min-width: 0 !important;
+    max-width: 559px !important;
+    height: auto !important;
+    max-height: none !important;
+    top: 150px;
+    right: 250px;
+    left: auto;
+    bottom: auto;
+    margin: 0;
+    object-fit: contain;
+    z-index: 99999;
+    pointer-events: none;
+}
+
+@media (max-width: 599px), (min-width: 600px) and (max-width: 899px) {
+    .pagedoll {
+        display: none !important;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+    .pagedoll {
+        top: 75px;
+        right: 50px;
+        width: 380px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .pagedoll {
+        display: block !important;
+        position: absolute !important;
+        top: 30px;
+        left: 40%;
+        right: auto;
+        bottom: -2px;
+        width: 300px !important;
+    }
+}
+
+@media (min-width: 1600px) {
+    .pagedoll {
+        top: 100px;
+        right: 150px;
+        width: 559px !important;
+    }
+}
+
+body {
+    position: relative;
+    background-color: #EDF4F7;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M-2 2L2 -2M0 8L8 0M6 10L10 6M-2 6L2 10M0 0L8 8M6 -2L10 2' stroke='%23DAE7EB' stroke-width='3'/%3E%3C/svg%3E");
+    color: #8FACB5;
+    font-family: "07LogoTypeGothic7", sans-serif;
+    font-size: 12px;
+}
+
+div {
+    box-sizing: border-box;
+    padding: 2px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #70868E;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: bold;
+    margin: 2px 0;
+    padding: 2px;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+p {
+    color: #8FACB5;
+    margin: 2px 0;
+}
+
+a {
+    color: #70868E;
+    text-decoration: underline;
+    font-family: "07LightNovelPop", sans-serif;
+}
+
+a:hover {
+    color: #8FACB5;
+    text-decoration: none;
+}
+
+hr {
+    border: 0;
+    border-top: 1px ridge #70868E;
+    margin: 2px 0;
+}
+
+ul, ol {
+    margin: 2px 0;
+    padding-left: 18px;
+}
+
+ul {
+    list-style-type: "☆ ";
+}
+
+details {
+    padding: 2px;
+}
+
+summary {
+    color: #70868E;
+    cursor: pointer;
+    font-weight: bold;
+    list-style-type: "★ ";
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #DAE7EB;
+    padding: 2px;
+    text-align: left;
+}
+
+th {
+    background-color: #DAE7EB;
+    color: #70868E;
+}
+
+code, pre {
+    background-color: #DAE7EB;
+    color: #70868E;
+    font-family: monospace;
+}
+
+code, pre {
+    padding: 2px;
+}
+
+pre {
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+input, textarea, select, button {
+    box-sizing: border-box;
+    border: 1px solid #70868E;
+    border-radius: 0;
+    background-color: #EDF4F7;
+    color: #70868E;
+    font-family: Meiryo, "Noto Sans JP", sans-serif;
+    font-size: 11px;
+}
+
+.uploaded-library {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-auto-rows: max-content;
+    gap: 4px;
+    align-items: start;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.library-item {
+    display: inline-block;
+    width: fit-content;
+    min-width: 0;
+    max-width: 100%;
+    padding: 2px;
+    border: 1px solid #70868E;
+    background: #EDF4F7;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.library-item img,
+.library-item video {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 240px;
+    object-fit: contain;
+}
+
+.library-item .item-name {
+    padding: 2px;
+    overflow-wrap: anywhere;
+}
+
+textarea { aspect-ratio: 64 / 7; width: 100%; }
+
+    @media screen and (max-width: 599px) {
+
+    body {
+        font-size: 12px;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    h1 {
+        font-size: 19px;
+    }
+
+    h2 {
+        font-size: 17px;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+
+    p, li {
+        overflow-wrap: break-word;
+    }
+
+    ul, ol {
+        padding-left: 16px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    input, textarea, select, button {
+        max-width: 100%;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    .pagedoll {
+        max-width: 85px;
+        max-height: 110px;
+    }
+
+    #miku {
+        max-width: 100%;
+        height: auto;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+}
+
+/* IPADS */
+@media screen and (min-width: 600px) and (max-width: 899px) {
+
+    body {
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 21px;
+    }
+
+    h2 {
+        font-size: 19px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .pagedoll {
+        max-width: 120px;
+    }
+
+    #miku {
+        max-width: 100%;
+    }
+
+    table {
+        max-width: 100%;
+    }
+}
+
+/* TABLETS */
+@media screen and (min-width: 900px) and (max-width: 1199px) {
+
+    body {
+        font-size: 13px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .pagedoll {
+        max-width: 150px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* LARGE DESKTOPS */
+@media screen and (min-width: 1200px) and (max-width: 1599px) {
+
+    body {
+        font-size: 12px;
+    }
+
+    .pagedoll {
+        max-width: 180px;
+    }
+}
+
+/* ULTRA-LARGE PCS */
+@media screen and (min-width: 1600px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    p, li {
+        line-height: 1.6;
+    }
+
+    .pagedoll {
+        max-width: 230px;
+    }
+
+    #miku {
+        max-width: 100%;
+        height: auto;
+    }
+}
+    
+</style>
+
+</head>
+<body>
+
+<img src="https://api.imghippo.com/files/Ipwh5424Lp.png" class="pagedoll">
+
+<h2>˚₊‧꒰ა Boorubox ໒꒱‧₊˚</h2>
+
+<p>˚₊‧꒰ა Welcome to the Boorubox! ໒꒱‧₊˚</p>
+<p>A booru-inspired creative space for visual content, generators, drawing, and animated media.</p>
+
+
+
+<p>˚₊‧꒰ა # Browse ໒꒱‧₊˚</p>
+<ul>
+<li><a href="#recently-deleted">Recently Deleted Artworks</a></li>
+<li><a href="gallery">My Gallery</a></li>
+<li><a href="artist">Artist (YOU!)</a></li>
+</ul>
+
+<p>˚₊‧꒰ა # Nothing To Store Yet? ໒꒱‧₊˚</p>
+<ul>
+<li><a href="animation">Animate</a> ♡ Animate Anything! Frame-by-Frame Or Tweening.</li>
+<li><a href="drawing">Drawing</a> ♡ Draw anything with a pen or stylus, maybe even a finger, draw anything you imagine!</li>
+<li><a href="editing">Pic Editing</a> ♡ Picture editing! add overlays and filters to the photo you desire.</li>
+</ul>
+
+<p>˚₊‧꒰ა # About Boorubox ໒꒱‧₊˚</p>
+<p>Boorubox is a storage of <b>Monbooru</b> which you can save artworks, pictures and more!</p>
+
+<br>
+
+<ul>
+
+<li>Transparency Artworks: PNG, APNG, MPNG, GIF, WEBM</li>
+<li>Videos: MP4, MOV</li>
+<li>Normal Photos: TIFF, JXL, JPEG</li>
+<li><b style="color:#d5ba88;">Special:</b> MDP, KRA, IPV, CLIP, PXA (Src: Medibang, Krita, IbisPaint X, ClipStudio Paint, Pixia)</li>
+
+</ul>
+
+<br>
+
+<hr>
+
+<span>Add an artwork, gif, or animations! but make sure you read our <a href="prohibited-contents" style="font-family: '07Nikumaru7'; color: #c84243;">Prohibited Content</a> rules.</span>
+<br>
+<input type="file" class="artwork-files" multiple accept="image/*,video/*">
+<br>
+<br>
+<label>Artwork Name:</label>
+<input placeholder="Untitled...">
+<br>
+<label>Created:</label>
+<input type="date">
+
+<hr>
+<hr>
+
+<h2>Recently Uploaded~</h2>
+
+<span style="font-family: '07Nikumaru7'; color: #c84243;" id="delete">[Delete]</span>
+
+<span style="font-family: '07Nikumaru7'; color: #c84243;" id="delete-but-stored">[Move to Trash]</span>
+
+<span style="font-family: '07Nikumaru7';" id="edit">[Edit]</span>
+
+<div class="uploaded-library"></div>
+
+<hr>
+<hr>
+
+<h2>Friendly Reminder!</h2>
+<p>These artwork of yours are only shown in Boorubox, it does <b>not</b> post it automatically.</p>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDDPjjAihpWXVsZWMjs3T9oxlNz6pFiSoQ",
+    authDomain: "boorubox-ecb1c.firebaseapp.com",
+    projectId: "boorubox-ecb1c",
+    storageBucket: "boorubox-ecb1c.firebasestorage.app",
+    messagingSenderId: "51283150314",
+    appId: "1:51283150314:web:60b0e73ec2a1542b9dde93"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const artworkInput = document.querySelector(".artwork-files");
+const artworkNameInput = document.querySelector('input[placeholder="Untitled..."]');
+const artworkDateInput = document.querySelector('input[type="date"]');
+const uploadedLibrary = document.querySelector(".uploaded-library");
+
+const uploadStatus = document.createElement("p");
+uploadedLibrary.before(uploadStatus);
+
+const databaseRequest = indexedDB.open("Boorubox", 1);
+
+databaseRequest.onupgradeneeded = () => {
+    const database = databaseRequest.result;
+    database.createObjectStore("artworks", { keyPath: "id" });
+};
+
+const localDatabase = await new Promise((resolve, reject) => {
+    databaseRequest.onsuccess = () => resolve(databaseRequest.result);
+    databaseRequest.onerror = () => reject(databaseRequest.error);
+});
+
+const saveLocalArtwork = (artwork) => new Promise((resolve, reject) => {
+    const transaction = localDatabase.transaction("artworks", "readwrite");
+    transaction.objectStore("artworks").put(artwork);
+    transaction.oncomplete = resolve;
+    transaction.onerror = () => reject(transaction.error);
+});
+
+const getLocalArtworks = () => new Promise((resolve, reject) => {
+    const transaction = localDatabase.transaction("artworks", "readonly");
+    const request = transaction.objectStore("artworks").getAll();
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+});
+
+const renderArtwork = (artwork) => {
+    const item = document.createElement("div");
+    item.className = "library-item";
+
+    const preview = document.createElement(
+        artwork.fileType.startsWith("video/") ? "video" : "img"
+    );
+
+    preview.src = URL.createObjectURL(artwork.file);
+
+    if (preview.tagName === "VIDEO") {
+        preview.controls = true;
+        preview.preload = "metadata";
+    }
+
+    const name = document.createElement("div");
+    name.className = "item-name";
+    name.textContent = artwork.name;
+
+    item.append(preview, name);
+    uploadedLibrary.appendChild(item);
+};
+
+for (const artwork of await getLocalArtworks()) {
+    renderArtwork(artwork);
+}
+
+artworkInput.addEventListener("change", async function () {
+    const files = Array.from(this.files);
+
+    if (!files.length) return;
+
+    for (const file of files) {
+        const artwork = {
+            id: crypto.randomUUID(),
+            name: artworkNameInput.value.trim() || file.name,
+            filename: file.name,
+            fileType: file.type,
+            fileSize: file.size,
+            createdDate: artworkDateInput.value,
+            uploadedAt: new Date().toISOString(),
+            file
+        };
+
+        try {
+            await saveLocalArtwork(artwork);
+            renderArtwork(artwork);
+
+            const { file: storedFile, ...metadata } = artwork;
+
+            await addDoc(collection(db, "artworks"), {
+                ...metadata,
+                uploadedAt: serverTimestamp()
+            });
+
+            uploadStatus.textContent = "Artwork saved locally and metadata synced to Firestore!";
+        } catch (error) {
+            uploadStatus.textContent = "Local saving or Firestore syncing failed.";
+            console.error(error);
+        }
+    }
+
+    this.value = "";
+});
+</script>
+
+
+</body>
+</html>
