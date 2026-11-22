@@ -454,9 +454,9 @@ textarea { aspect-ratio: 64 / 7; width: 100%; }
 
 <p>˚₊‧꒰ა # Browse ໒꒱‧₊˚</p>
 <ul>
-<li><a href="#recently-deleted">Recently Deleted Artworks</a></li>
-<li><a href="gallery">My Gallery</a></li>
-<li><a href="artist">Artist (YOU!)</a></li>
+<li><a href="#recently-deleted" data-bb-page="recently-deleted">Recently Deleted Artworks</a></li>
+<li><a href="#gallery" data-bb-page="gallery">My Gallery</a></li>
+<li><a href="#artist" data-bb-page="artist">Artist (YOU!)</a></li>
 </ul>
 
 <p>˚₊‧꒰ა # Nothing To Store Yet? ໒꒱‧₊˚</p>
@@ -626,7 +626,7 @@ artworkInput.addEventListener("change", async function () {
 
             uploadStatus.textContent = "Artwork saved locally and metadata synced to Firestore!";
         } catch (error) {
-            uploadStatus.textContent = "Local saving or Firestore syncing failed.";
+            uploadStatus.textContent = ":(";
             console.error(error);
         }
     }
@@ -634,6 +634,739 @@ artworkInput.addEventListener("change", async function () {
     this.value = "";
 });
 </script>
+
+<script>
+(() => {
+    "use strict";
+
+    const DB_NAME = "Boorubox";
+    const STORE = "artworks";
+
+    const library = document.querySelector(".uploaded-library");
+    const editSpan = document.querySelector("#edit");
+    const deleteSpan = document.querySelector("#delete");
+    const trashSpan = document.querySelector("#delete-but-stored");
+
+    if (!library) return;
+
+    let db = null;
+    let records = [];
+    let selectedId = null;
+    let currentPage = "";
+    let profileImage = "";
+
+    const dbRequest = indexedDB.open(DB_NAME, 1);
+
+    dbRequest.onsuccess = () => {
+        db = dbRequest.result;
+        syncLibrary();
+    };
+
+    dbRequest.onerror = () => {
+        console.error("Boorubox database could not be opened.");
+    };
+
+    function store(mode = "readonly") {
+        return db.transaction(STORE, mode).objectStore(STORE);
+    }
+
+    function getAll() {
+        return new Promise((resolve, reject) => {
+            const request = store().getAll();
+            request.onsuccess = () => resolve(request.result || []);
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    function getOne(id) {
+        return new Promise((resolve, reject) => {
+            const request = store().get(id);
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    function put(record) {
+        return new Promise((resolve, reject) => {
+            const request = store("readwrite").put(record);
+            request.onsuccess = resolve;
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    function remove(id) {
+        return new Promise((resolve, reject) => {
+            const request = store("readwrite").delete(id);
+            request.onsuccess = resolve;
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    function ordered(items) {
+        return [...items].sort((a, b) =>
+            new Date(a.uploadedAt || 0) - new Date(b.uploadedAt || 0)
+        );
+    }
+
+    async function syncLibrary() {
+        if (!db) return;
+
+        records = await getAll();
+
+        const active = ordered(records.filter(record => !record.inTrash));
+        const elements = [...library.querySelectorAll(".library-item")];
+        const unmatched = [...active];
+
+        elements.forEach(element => {
+            const name = element.querySelector(".item-name")
+                ?.textContent?.trim();
+
+            let index = unmatched.findIndex(record =>
+                record.name === name
+            );
+
+            if (index < 0) {
+                index = unmatched.findIndex(record =>
+                    record.filename === name
+                );
+            }
+
+            if (index < 0) {
+                index = unmatched.findIndex(record =>
+                    record.id === element.dataset.booruboxId
+                );
+            }
+
+            if (index < 0) {
+                index = unmatched.length ? 0 : -1;
+            }
+
+            if (index < 0) {
+                element.dataset.booruboxId = "";
+                return;
+            }
+
+            const [record] = unmatched.splice(index, 1);
+            element.dataset.booruboxId = record.id;
+            element.style.cursor = "pointer";
+            element.style.outlineOffset = "-2px";
+            element.style.outline =
+                record.id === selectedId
+                    ? "2px solid #4287ff"
+                    : "none";
+        });
+
+        if (selectedId &&
+            !active.some(record => record.id === selectedId)) {
+            selectedId = null;
+        }
+
+        updateSelection();
+    }
+
+    function updateSelection() {
+        library.querySelectorAll(".library-item").forEach(element => {
+            element.style.outline =
+                element.dataset.booruboxId === selectedId
+                    ? "2px solid #4287ff"
+                    : "none";
+        });
+
+        document.querySelectorAll(".bb-artwork").forEach(element => {
+            element.classList.toggle(
+                "bb-selected",
+                element.dataset.id === selectedId
+            );
+        });
+    }
+
+    library.addEventListener("click", event => {
+        const item = event.target.closest(".library-item");
+        if (!item) return;
+
+        const id = item.dataset.booruboxId;
+        if (!id) return;
+
+        selectedId = id;
+        updateSelection();
+    });
+
+    function bindSpan(element, callback) {
+        if (!element) return;
+
+        element.style.cursor = "pointer";
+        element.setAttribute("role", "button");
+        element.setAttribute("tabindex", "0");
+
+        element.addEventListener("click", event => {
+            event.preventDefault();
+            callback();
+        });
+
+        element.addEventListener("keydown", event => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                callback();
+            }
+        });
+    }
+
+    async function selectedArtwork() {
+        if (!selectedId) return null;
+        return getOne(selectedId);
+    }
+
+    async function deleteSelected() {
+        const artwork = await selectedArtwork();
+        if (!artwork) return;
+
+        await remove(artwork.id);
+        selectedId = null;
+
+        await syncLibrary();
+
+        if (currentPage === "my gallery") {
+            await renderGallery();
+        } else if (currentPage === "recently deleted artworks") {
+            await renderTrash();
+        }
+    }
+
+    async function trashSelected() {
+        const artwork = await selectedArtwork();
+        if (!artwork) return;
+
+        artwork.inTrash = true;
+        artwork.trashedAt = new Date().toISOString();
+
+        await put(artwork);
+        selectedId = null;
+
+        await syncLibrary();
+
+        if (currentPage === "my gallery") {
+            await renderGallery();
+        }
+    }
+
+    bindSpan(editSpan, openEditor);
+    bindSpan(deleteSpan, deleteSelected);
+    bindSpan(trashSpan, trashSelected);
+
+    const page = document.createElement("div");
+    page.id = "boorubox-pages";
+
+    Object.assign(page.style, {
+        position: "fixed",
+        inset: "0",
+        zIndex: "100000",
+        overflow: "auto",
+        display: "none",
+        background: "#EDF4F7",
+        color: "#8FACB5",
+        fontFamily: "07LogoTypeGothic7, Meiryo, sans-serif",
+        fontSize: "14px",
+        padding: "2px"
+    });
+
+    document.body.appendChild(page);
+
+    const css = document.createElement("style");
+    css.textContent = `
+        #boorubox-pages * {
+            box-sizing: border-box;
+        }
+
+        #boorubox-pages a {
+            color: #70868E;
+            cursor: pointer;
+        }
+
+        #boorubox-pages input,
+        #boorubox-pages textarea,
+        #boorubox-pages select {
+            font: inherit;
+            color: #70868E;
+            background: #F8FBFC;
+            border: 1px solid #B9CCD2;
+            padding: 2px;
+            max-width: 100%;
+        }
+
+        #boorubox-pages button {
+            font: inherit;
+            color: #70868E;
+            background: #E4EEF2;
+            border: 1px solid #AFC3CA;
+            padding: 2px 5px;
+            cursor: pointer;
+        }
+
+        #boorubox-pages .bb-artwork {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: top;
+            width: 122px;
+            margin: 2px;
+            padding: 2px;
+            cursor: pointer;
+            outline-offset: -2px;
+        }
+
+        #boorubox-pages .bb-artwork img,
+        #boorubox-pages .bb-artwork video {
+            width: 116px;
+            height: 116px;
+            object-fit: contain;
+        }
+
+        #boorubox-pages .bb-selected {
+            outline: 2px solid #4287ff;
+        }
+
+        #boorubox-pages .bb-field {
+            margin: 5px 0;
+        }
+
+        #boorubox-pages .bb-field label {
+            display: block;
+        }
+
+        #boorubox-pages .bb-actions {
+            margin: 5px 0;
+        }
+    `;
+    document.head.appendChild(css);
+
+    function showPage(title, content) {
+        currentPage = title.toLowerCase();
+
+        page.replaceChildren();
+
+        const back = document.createElement("a");
+        back.href = "#boorubox";
+        back.textContent = "← Boorubox";
+        back.addEventListener("click", event => {
+            event.preventDefault();
+            goBack();
+        });
+
+        const heading = document.createElement("h2");
+        heading.textContent = title;
+
+        const contentArea = document.createElement("div");
+        contentArea.id = "bb-page-content";
+        contentArea.innerHTML = content;
+
+        page.append(back, heading, contentArea);
+        page.style.display = "block";
+    }
+
+    function goBack() {
+        page.style.display = "none";
+        page.replaceChildren();
+        currentPage = "";
+        selectedId = null;
+        updateSelection();
+
+        history.replaceState(
+            null,
+            "",
+            location.pathname + location.search
+        );
+    }
+
+    function makePreview(record) {
+        const original = [...library.querySelectorAll(".library-item")]
+            .find(element => element.dataset.booruboxId === record.id);
+
+        const existing = original?.querySelector("img, video");
+
+        if (existing) {
+            return existing.cloneNode(true);
+        }
+
+        const preview = document.createElement(
+            record.fileType?.startsWith("video/") ? "video" : "img"
+        );
+
+        if (record.file) {
+            preview.src = URL.createObjectURL(record.file);
+        }
+
+        return preview;
+    }
+
+    function makeArtworkGrid(items, container) {
+        container.replaceChildren();
+
+        items.forEach(record => {
+            const item = document.createElement("div");
+            item.className = "bb-artwork";
+            item.dataset.id = record.id;
+
+            if (selectedId === record.id) {
+                item.classList.add("bb-selected");
+            }
+
+            const preview = makePreview(record);
+            item.appendChild(preview);
+
+            const name = document.createElement("div");
+            name.textContent = record.name || record.filename || "Untitled";
+
+            const date = document.createElement("small");
+            date.textContent = record.createdDate || "";
+
+            item.append(name, date);
+
+            item.addEventListener("click", () => {
+                selectedId = record.id;
+                updateSelection();
+            });
+
+            container.appendChild(item);
+        });
+    }
+
+    async function renderGallery() {
+        await syncLibrary();
+
+        const items = records.filter(record => !record.inTrash);
+
+        showPage("My Gallery", `
+            <p>Select an artwork to edit, delete, or move to trash.</p>
+            <div id="bb-gallery"></div>
+            <div class="bb-actions">
+                <button id="bb-edit">Edit</button>
+                <button id="bb-delete">Delete</button>
+                <button id="bb-trash">Move to Trash</button>
+            </div>
+        `);
+
+        makeArtworkGrid(
+            items,
+            page.querySelector("#bb-gallery")
+        );
+
+        page.querySelector("#bb-edit").onclick = openEditor;
+        page.querySelector("#bb-delete").onclick = deleteSelected;
+        page.querySelector("#bb-trash").onclick = trashSelected;
+    }
+
+    async function renderTrash() {
+        records = await getAll();
+
+        const items = records.filter(record => record.inTrash);
+
+        showPage("Recently Deleted Artworks", `
+            <p>Select an artwork to restore or permanently delete it.</p>
+            <div id="bb-trash-gallery"></div>
+            <div class="bb-actions">
+                <button id="bb-restore">Restore</button>
+                <button id="bb-delete-forever">Delete Permanently</button>
+            </div>
+        `);
+
+        makeArtworkGrid(
+            items,
+            page.querySelector("#bb-trash-gallery")
+        );
+
+        page.querySelector("#bb-restore").onclick = restoreSelected;
+        page.querySelector("#bb-delete-forever").onclick = deleteSelected;
+    }
+
+    async function restoreSelected() {
+        const artwork = await selectedArtwork();
+        if (!artwork || !artwork.inTrash) return;
+
+        artwork.inTrash = false;
+        delete artwork.trashedAt;
+
+        await put(artwork);
+
+        selectedId = null;
+        await renderTrash();
+    }
+
+    async function openEditor() {
+        const artwork = await selectedArtwork();
+        if (!artwork) return;
+
+        showPage("Edit Artwork", `
+            <div id="bb-edit-preview"></div>
+
+            <div class="bb-field">
+                <label for="bb-name">Artwork Name</label>
+                <input id="bb-name" type="text">
+            </div>
+
+            <div class="bb-field">
+                <label for="bb-date">Timestamp / Date</label>
+                <input id="bb-date" type="datetime-local">
+            </div>
+
+            <div class="bb-field">
+                <label for="bb-artstyle">Artstyle</label>
+                <select id="bb-artstyle">
+                    <option value="">Unspecified</option>
+                    <option value="Anime">Anime</option>
+                    <option value="Manga">Manga</option>
+                    <option value="Digital Art">Digital Art</option>
+                    <option value="Traditional Art">Traditional Art</option>
+                    <option value="Pixel Art">Pixel Art</option>
+                    <option value="Illustration">Illustration</option>
+                    <option value="Sketch">Sketch</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="bb-field">
+                <label for="bb-description">Description</label>
+                <textarea id="bb-description" rows="4"></textarea>
+            </div>
+
+            <div class="bb-field">
+                <label for="bb-tags">Tags</label>
+                <input id="bb-tags" type="text">
+            </div>
+
+            <div class="bb-field">
+                <label for="bb-credit">Artist Credit</label>
+                <input id="bb-credit" type="text">
+            </div>
+
+            <div class="bb-field">
+                <label for="bb-rating">Content Rating</label>
+                <select id="bb-rating">
+                    <option value="">Unspecified</option>
+                    <option value="General">General</option>
+                    <option value="Teen">Teen</option>
+                    <option value="Mature">Mature</option>
+                </select>
+            </div>
+
+            <button id="bb-save">Save Changes</button>
+            <button id="bb-cancel">Cancel</button>
+        `);
+
+        page.querySelector("#bb-edit-preview")
+            .appendChild(makePreview(artwork));
+
+        page.querySelector("#bb-name").value = artwork.name || "";
+
+        const dateInput = page.querySelector("#bb-date");
+        const dateValue = artwork.createdDate || "";
+
+        dateInput.value = dateValue.includes("T")
+            ? dateValue.slice(0, 16)
+            : dateValue
+                ? dateValue + "T00:00"
+                : "";
+
+        page.querySelector("#bb-artstyle").value =
+            artwork.artstyle || "";
+
+        page.querySelector("#bb-description").value =
+            artwork.description || "";
+
+        page.querySelector("#bb-tags").value =
+            Array.isArray(artwork.tags)
+                ? artwork.tags.join(", ")
+                : artwork.tags || "";
+
+        page.querySelector("#bb-credit").value =
+            artwork.artistCredit || "";
+
+        page.querySelector("#bb-rating").value =
+            artwork.rating || "";
+
+        page.querySelector("#bb-save").onclick = async () => {
+            const updated = await getOne(artwork.id);
+            if (!updated) return;
+
+            updated.name =
+                page.querySelector("#bb-name").value.trim() ||
+                updated.filename;
+
+            updated.createdDate =
+                page.querySelector("#bb-date").value;
+
+            updated.timestamp = updated.createdDate
+                ? new Date(updated.createdDate).toISOString()
+                : "";
+
+            updated.artstyle =
+                page.querySelector("#bb-artstyle").value;
+
+            updated.description =
+                page.querySelector("#bb-description").value;
+
+            updated.tags =
+                page.querySelector("#bb-tags").value
+                    .split(",")
+                    .map(tag => tag.trim())
+                    .filter(Boolean);
+
+            updated.artistCredit =
+                page.querySelector("#bb-credit").value;
+
+            updated.rating =
+                page.querySelector("#bb-rating").value;
+
+            updated.editedAt = new Date().toISOString();
+
+            await put(updated);
+            await syncLibrary();
+
+            if (currentPage === "my gallery") {
+                await renderGallery();
+            } else {
+                goBack();
+            }
+        };
+
+        page.querySelector("#bb-cancel").onclick = goBack;
+    }
+
+    async function renderArtist() {
+        records = await getAll();
+
+        const profile = JSON.parse(
+            localStorage.getItem("boorubox-profile") || "{}"
+        );
+
+        const artworks = records.filter(record => !record.inTrash);
+
+        showPage("Artist (YOU!)", `
+            <div id="bb-profile"></div>
+            <button id="bb-edit-profile">Edit Profile</button>
+            <h3>My Artworks</h3>
+            <div id="bb-artist-artworks"></div>
+        `);
+
+        const profileArea = page.querySelector("#bb-profile");
+
+        if (profile.image) {
+            const image = document.createElement("img");
+            image.src = profile.image;
+            image.width = 100;
+            image.height = 100;
+            image.style.objectFit = "cover";
+            profileArea.appendChild(image);
+        }
+
+        const name = document.createElement("h3");
+        name.textContent = profile.name || "Artist";
+
+        const bio = document.createElement("p");
+        bio.textContent = profile.bio || "";
+
+        profileArea.append(name, bio);
+
+        makeArtworkGrid(
+            artworks,
+            page.querySelector("#bb-artist-artworks")
+        );
+
+        page.querySelector("#bb-edit-profile").onclick =
+            editArtistProfile;
+    }
+
+    function editArtistProfile() {
+        const profile = JSON.parse(
+            localStorage.getItem("boorubox-profile") || "{}"
+        );
+
+        profileImage = "";
+
+        showPage("Edit Profile", `
+            <div class="bb-field">
+                <label for="bb-profile-name">Display Name</label>
+                <input id="bb-profile-name" type="text">
+            </div>
+
+            <div class="bb-field">
+                <label for="bb-profile-bio">Bio</label>
+                <textarea id="bb-profile-bio" rows="5"></textarea>
+            </div>
+
+            <div class="bb-field">
+                <label for="bb-profile-image">Profile Picture</label>
+                <input id="bb-profile-image" type="file" accept="image/*">
+            </div>
+
+            <button id="bb-profile-save">Save Profile</button>
+        `);
+
+        page.querySelector("#bb-profile-name").value =
+            profile.name || "";
+
+        page.querySelector("#bb-profile-bio").value =
+            profile.bio || "";
+
+        page.querySelector("#bb-profile-image").onchange = event => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                profileImage = reader.result;
+            };
+
+            reader.readAsDataURL(file);
+        };
+
+        page.querySelector("#bb-profile-save").onclick = () => {
+            localStorage.setItem("boorubox-profile", JSON.stringify({
+                name: page.querySelector("#bb-profile-name").value,
+                bio: page.querySelector("#bb-profile-bio").value,
+                image: profileImage || profile.image || ""
+            }));
+
+            renderArtist();
+        };
+    }
+
+    function navigate() {
+        const route = location.hash.slice(1);
+
+        if (route === "gallery") {
+            renderGallery();
+        } else if (route === "recently-deleted") {
+            renderTrash();
+        } else if (route === "artist") {
+            renderArtist();
+        } else {
+            goBack();
+        }
+    }
+
+    document.querySelectorAll("[data-bb-page]").forEach(link => {
+        link.addEventListener("click", event => {
+            event.preventDefault();
+            location.hash = link.dataset.bbPage;
+        });
+    });
+
+    window.addEventListener("hashchange", navigate);
+
+    const observer = new MutationObserver(() => {
+        if (db) syncLibrary();
+    });
+
+    observer.observe(library, {
+        childList: true,
+        subtree: true
+    });
+
+    if (location.hash) navigate();
+})();
+</script>
+
+
 
 
 </body>
