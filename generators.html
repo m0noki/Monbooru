@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="favicon-cat.v2.png">
+
+<style>
+
+@font-face {
+    font-family: "07LightNovelPop";
+    src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/LightNovelPOPv2.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+  font-family: "07Nikumaru7";
+  src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/07Nikumaru7.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+    font-family: "07Yasashisa7";
+    src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/07%E3%82%84%E3%81%95%E3%81%97%E3%81%95%E3%82%B4%E3%82%B7%E3%83%83%E3%82%AF%E3%83%9C%E3%83%BC%E3%83%AB%E3%83%89.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+*,
+*::before,
+*::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    -webkit-tap-highlight-color: rgba(188, 216, 222, 0.5);
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: auto;
+
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+html, body * {
+    cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1031.png") 32 32, auto !important;
+}
+
+a, button, select {
+   cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1030.png") 32 32, auto !important;
+}
+
+textarea, input[type="text"], p, h1, h2, {
+   cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1047.png") 32 32, auto !important;
+}
+
+body {
+    position: relative;
+    background-color: #EDF4F7;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M-2 2L2 -2M0 8L8 0M6 10L10 6M-2 6L2 10M0 0L8 8M6 -2L10 2' stroke='%23DAE7EB' stroke-width='3'/%3E%3C/svg%3E");
+    color: #8FACB5;
+    font-family: "07Yasashisa7", sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+div {
+    box-sizing: border-box;
+    padding: 2px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #70868E;
+    font-family: "07LightNovelPop", sans-serif;
+    font-weight: bold;
+    margin: 2px 0;
+    padding: 2px;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+p {
+    color: #8FACB5;
+    margin: 2px 0;
+}
+
+a {
+    color: #70868E;
+    text-decoration: underline;
+    font-family: "07Nikumaru7", "07LightNovelPop", sans-serif;
+}
+
+a:hover {
+    color: #8FACB5;
+    text-decoration: none;
+}
+
+hr {
+    border: 0;
+    border-top: 1px ridge #70868E;
+    margin: 2px 0;
+}
+
+ul, ol {
+    margin: 2px 0;
+    padding-left: 18px;
+}
+
+ul {
+    list-style-type: "☆ ";
+}
+
+details {
+    padding: 2px;
+}
+
+summary {
+    display: list-item;
+    list-style-position: inside;
+    list-style-type: disclosure-closed !important;
+}
+
+details[open] summary {
+    list-style-type: disclosure-open !important;
+}
+
+summary {
+    color: #70868E;
+    cursor: pointer;
+    font-weight: bold;
+    list-style-type: "★ ";
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #DAE7EB;
+    padding: 2px;
+    text-align: left;
+}
+
+th {
+    background-color: #DAE7EB;
+    color: #70868E;
+}
+
+code, pre {
+    background-color: #DAE7EB;
+    color: #70868E;
+    font-family: monospace;
+}
+
+code, pre {
+    padding: 2px;
+}
+
+pre {
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+::placeholder { opacity: 0.5; }
+
+textarea { aspect-ratio: 64 / 7; width: 100%; }
+
+    @media screen and (max-width: 599px) {
+
+    body {
+        font-size: 12px;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    h1 {
+        font-size: 19px;
+    }
+
+    h2 {
+        font-size: 17px;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+
+    p, li {
+        overflow-wrap: break-word;
+    }
+
+    ul, ol {
+        padding-left: 16px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    input, textarea, select, button {
+        max-width: 100%;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    .pagedoll {
+        max-width: 85px;
+        max-height: 110px;
+    }
+
+    
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+}
+
+/* IPADS */
+@media screen and (min-width: 600px) and (max-width: 899px) {
+
+    body {
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 21px;
+    }
+
+    h2 {
+        font-size: 19px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .pagedoll {
+        max-width: 120px;
+    }
+
+    
+
+    table {
+        max-width: 100%;
+    }
+}
+
+/* TABLETS */
+@media screen and (min-width: 900px) and (max-width: 1199px) {
+
+    body {
+        font-size: 13px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .pagedoll {
+        max-width: 150px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* LARGE DESKTOPS */
+@media screen and (min-width: 1200px) and (max-width: 1599px) {
+
+    body {
+        font-size: 12px;
+    }
+
+    .pagedoll {
+        max-width: 180px;
+    }
+}
+
+/* ULTRA-LARGE PCS */
+@media screen and (min-width: 1600px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    p, li {
+        line-height: 1.6;
+    }
+
+    .pagedoll {
+        max-width: 230px;
+    }
+
+    
+    }
+}
+
+
+/* ARTIST DIRECTORY */
+
+.artist-section {
+    margin: 2px 0;
+}
+
+.artist-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin: 2px 0;
+}
+
+.artist-heading h3 {
+    margin: 2px 0;
+}
+
+.artist-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin: 2px 0;
+}
+
+.artist-controls input {
+    flex: 1;
+    min-width: 140px;
+}
+
+.artist-button {
+    border: 1px solid #8FACB5;
+    border-radius: 0;
+    background: #DAE7EB;
+    color: #70868E;
+    padding: 2px 5px;
+    font-family: "07Nikumaru7", sans-serif;
+    font-size: 12px;
+}
+
+.artist-button:hover {
+    background: #EDF4F7;
+    text-decoration: underline;
+}
+
+.artist-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.artist-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: #EDF4F7;
+}
+
+.artist-table th {
+    background: #DAE7EB;
+    color: #70868E;
+    font-family: "07LightNovelPop", sans-serif;
+    white-space: nowrap;
+}
+
+.artist-table th,
+.artist-table td {
+    border: 1px solid #DAE7EB;
+    padding: 2px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.artist-table tr:hover td {
+    background: #F5FAFC;
+}
+
+.artist-person {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 145px;
+}
+
+.artist-pfp {
+    display: block;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border: 1px solid #8FACB5;
+    padding: 1px;
+    background: #DAE7EB;
+    image-rendering: auto;
+}
+
+.artist-name {
+    color: #70868E;
+    font-family: "07LightNovelPop", sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.artist-username {
+    color: #8FACB5;
+    font-size: 11px;
+}
+
+.artist-description {
+    min-width: 130px;
+    max-width: 280px;
+    overflow-wrap: anywhere;
+}
+
+.artist-website {
+    white-space: nowrap;
+}
+
+.artist-delete {
+    border: 1px solid #B7C9CE;
+    background: #EDF4F7;
+    color: #70868E;
+    padding: 2px 4px;
+    font-family: "07Yasashisa7", sans-serif;
+}
+
+.artist-delete:hover {
+    background: #DAE7EB;
+}
+
+.artist-empty {
+    text-align: center !important;
+    padding: 12px 2px !important;
+}
+
+.artist-count {
+    color: #70868E;
+    font-family: "07Nikumaru7", sans-serif;
+}
+
+.artist-dialog {
+    width: min(420px, 95%);
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid #70868E;
+    border-radius: 0;
+    background: #EDF4F7;
+    color: #8FACB5;
+    padding: 2px;
+    font-family: "07Yasashisa7", sans-serif;
+}
+
+.artist-dialog::backdrop {
+    background: rgba(112,134,142,.35);
+}
+
+.artist-dialog h3 {
+    margin: 2px 0;
+}
+
+.artist-dialog label {
+    display: block;
+    color: #70868E;
+    margin-top: 4px;
+}
+
+.artist-dialog input,
+.artist-dialog textarea {
+    display: block;
+    width: 100%;
+    margin: 2px 0;
+    padding: 2px;
+    border: 1px solid #B7C9CE;
+    border-radius: 0;
+    background: #F8FBFC;
+    color: #70868E;
+    font-family: "07Yasashisa7", sans-serif;
+    font-size: 12px;
+}
+
+.artist-dialog textarea {
+    min-height: 65px;
+    aspect-ratio: auto;
+    resize: vertical;
+}
+
+.artist-dialog input:focus,
+.artist-dialog textarea:focus {
+    outline: 1px solid #8FACB5;
+}
+
+.artist-dialog-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin-top: 5px;
+}
+
+@media(max-width:599px) {
+    .artist-table {
+        min-width: 620px;
+    }
+}
+
+
+/* ARTISTS ☆ */
+
+.artist-section {
+    margin: 2px 0;
+}
+
+.artist-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+.artist-tools {
+    display: flex;
+    gap: 3px;
+    margin: 3px 0;
+}
+
+.artist-tools input {
+    flex: 1;
+    min-width: 100px;
+}
+
+.artist-button {
+    border: 1px solid #8FACB5;
+    background: #DAE7EB;
+    color: #70868E;
+    padding: 2px 6px;
+    font-family: "07Nikumaru7", sans-serif;
+}
+
+.artist-button:hover {
+    background: #EDF4F7;
+}
+
+.artist-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.artist-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.artist-table th {
+    background: #DAE7EB;
+    color: #70868E;
+    font-family: "07LightNovelPop", sans-serif;
+}
+
+.artist-table td,
+.artist-table th {
+    border: 1px solid #DAE7EB;
+    padding: 2px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.artist-person {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 125px;
+}
+
+.artist-pfp {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border: 1px solid #8FACB5;
+    padding: 1px;
+    background: #DAE7EB;
+    flex-shrink: 0;
+}
+
+.artist-name {
+    color: #70868E;
+    font-family: "07LightNovelPop", sans-serif;
+    font-size: 13px;
+}
+
+.artist-username {
+    color: #8FACB5;
+    font-size: 11px;
+}
+
+.artist-description {
+    min-width: 130px;
+    overflow-wrap: anywhere;
+}
+
+.artist-remove {
+    border: 1px solid #B7C9CE;
+    background: #EDF4F7;
+    color: #70868E;
+    padding: 2px 4px;
+}
+
+.artist-empty {
+    text-align: center !important;
+    padding: 10px 2px !important;
+}
+
+.artist-dialog {
+    width: min(360px, 95%);
+    border: 1px solid #8FACB5;
+    border-radius: 0;
+    background: #EDF4F7;
+    color: #8FACB5;
+    padding: 3px;
+    font-family: "07Yasashisa7", sans-serif;
+}
+
+.artist-dialog::backdrop {
+    background: rgba(112,134,142,.3);
+}
+
+.artist-dialog label {
+    display: block;
+    color: #70868E;
+    margin-top: 4px;
+}
+
+.artist-dialog input,
+.artist-dialog textarea {
+    width: 100%;
+    padding: 2px;
+    margin: 2px 0;
+    border: 1px solid #B7C9CE;
+    border-radius: 0;
+    background: #F8FBFC;
+    color: #70868E;
+    font-family: "07Yasashisa7", sans-serif;
+    font-size: 12px;
+}
+
+.artist-dialog textarea {
+    min-height: 60px;
+    aspect-ratio: auto;
+}
+
+@media(max-width:599px) {
+    .artist-table {
+        min-width: 440px;
+    }
+}
+
+
+/* ARTIST DIRECTORY ☆ */
+
+.artist-section {
+    margin: 2px 0;
+}
+
+.artist-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+.artist-count {
+    color: #70868E;
+    font-family: "07Nikumaru7", sans-serif;
+}
+
+.artist-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin: 3px 0;
+}
+
+.artist-search {
+    flex: 1;
+    min-width: 130px;
+    border: 1px solid #B7C9CE;
+    border-radius: 0;
+    background: #F8FBFC;
+    color: #70868E;
+    padding: 3px;
+    font-family: "07Yasashisa7", sans-serif;
+    font-size: 12px;
+}
+
+.artist-button {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 1px solid #8FACB5;
+    border-radius: 0;
+    background: linear-gradient(
+        to bottom,
+        #FFFFFF 0%,
+        #EDF4F7 48%,
+        #DAE7EB 100%
+    );
+    color: #70868E;
+    padding: 3px 8px;
+    font-family: "07Nikumaru7", sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.artist-button:hover {
+    background: linear-gradient(
+        to bottom,
+        #DAE7EB,
+        #F8FBFC
+    );
+    border-color: #70868E;
+}
+
+.artist-button:active {
+    background: #DAE7EB;
+    border-style: inset;
+}
+
+.artist-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.artist-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: #EDF4F7;
+}
+
+.artist-table th {
+    background: #DAE7EB;
+    color: #70868E;
+    font-family: "07LightNovelPop", sans-serif;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.artist-table th,
+.artist-table td {
+    border: 1px solid #DAE7EB;
+    padding: 2px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.artist-table tbody tr:hover td {
+    background: #F5FAFC;
+}
+
+.artist-person {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 145px;
+}
+
+.artist-pfp {
+    display: block;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border: 1px solid #8FACB5;
+    padding: 1px;
+    background: #DAE7EB;
+    image-rendering: auto;
+}
+
+.artist-name {
+    color: #70868E;
+    font-family: "07LightNovelPop", sans-serif;
+    font-size: 13px;
+}
+
+.artist-username {
+    color: #8FACB5;
+    font-size: 11px;
+}
+
+.artist-description {
+    min-width: 130px;
+    max-width: 300px;
+    overflow-wrap: anywhere;
+}
+
+.artist-remove {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 1px solid #B7C9CE;
+    border-radius: 0;
+    background: #EDF4F7;
+    color: #70868E;
+    padding: 2px 6px;
+    font-family: "07Yasashisa7", sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.artist-remove:hover {
+    background: #DAE7EB;
+    border-color: #70868E;
+}
+
+.artist-empty {
+    text-align: center !important;
+    padding: 12px 2px !important;
+}
+
+.artist-dialog {
+    width: min(360px, 95%);
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid #70868E;
+    border-radius: 0;
+    background: #EDF4F7;
+    color: #8FACB5;
+    padding: 3px;
+    font-family: "07Yasashisa7", sans-serif;
+}
+
+.artist-dialog::backdrop {
+    background: rgba(112,134,142,.35);
+}
+
+.artist-dialog label {
+    display: block;
+    color: #70868E;
+    margin-top: 4px;
+}
+
+.artist-dialog input[type="text"],
+.artist-dialog textarea {
+    display: block;
+    width: 100%;
+    border: 1px solid #B7C9CE;
+    border-radius: 0;
+    background: #F8FBFC;
+    color: #70868E;
+    padding: 3px;
+    font-family: "07Yasashisa7", sans-serif;
+    font-size: 12px;
+    margin: 2px 0;
+}
+
+.artist-dialog textarea {
+    min-height: 65px;
+    aspect-ratio: auto;
+    resize: vertical;
+}
+
+.artist-upload {
+    display: block;
+    width: 100%;
+    margin: 3px 0;
+    border: 1px solid #B7C9CE;
+    background: #F8FBFC;
+    padding: 3px;
+    color: #70868E;
+    font-family: "07Yasashisa7", sans-serif;
+    font-size: 12px;
+}
+
+.artist-preview {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 4px 0;
+    min-height: 44px;
+}
+
+.artist-preview img {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border: 1px solid #8FACB5;
+    padding: 1px;
+    background: #DAE7EB;
+}
+
+.artist-preview-text {
+    color: #8FACB5;
+}
+
+.artist-dialog-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin-top: 5px;
+}
+
+@media(max-width:599px) {
+    .artist-table {
+        min-width: 440px;
+    }
+}
+
+    
+</style>
+
+</head>
+<body>
+
+<h2>✩⁺˚ Generators / Makers! ˚⁺✩</h2>
+<hr>
+<hr>
+
+<ul>
+
+<li><a href="star-generator">Star Maker ᯓ★</a> - Create your own star shape and save it as an artwork of yours!</li>
+
+<li><a href="sticker-illustrations">Sticker Illustrations ˗ˏˋ ꒰ ♡ ꒱ ˎˊ˗</a> - Draw stickers with <b style="font-family: '07LightNovelPop', sans-serif">Moniro</b>! A built-in Monbooru sticker artwork maker with everything you need, no payment needed.</a></li>
+
+<li><a href="pixelart">Pixel Art 𖤐ᯤ </a> - Spritesheets and Pixel Artists are welcome here!</li>
+
+</ul>
+
+<hr>
+<hr>
+
+
+<section class="artist-section">
+
+    <div class="artist-header">
+        <h2>✩⁺˚ Artists ˚⁺✩</h2>
+        <span class="artist-count" id="artistCount">0 artists ☆</span>
+    </div>
+
+    <p>Artists around here! Draw, create and share your stuff! ♡</p>
+
+    <hr>
+
+    <div class="artist-toolbar">
+        <input
+            type="text"
+            class="artist-search"
+            id="artistSearch"
+            placeholder="Search artists..."
+        >
+
+        <button
+            type="button"
+            class="artist-button"
+            id="openArtistForm"
+        >☆ Add Artist</button>
+    </div>
+
+    <div class="artist-table-wrap">
+        <table class="artist-table">
+
+            <thead>
+                <tr>
+                    <th>Artist</th>
+                    <th>About</th>
+                    <th> </th>
+                </tr>
+            </thead>
+
+            <tbody id="artistList">
+                <tr>
+                    <td colspan="3" class="artist-empty">
+                        Nobody here yet! Be the first artist! ☆
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</section>
+
+<hr>
+<hr>
+
+<dialog class="artist-dialog" id="artistDialog">
+
+    <h3>☆ Add a new artist!</h3>
+    <hr>
+
+    <form id="artistForm">
+
+        <label for="artistPfp">PFP</label>
+
+        <input
+            type="file"
+            class="artist-upload"
+            id="artistPfp"
+            accept="image/png,image/jpeg,image/gif,image/webp"
+        >
+
+        <div class="artist-preview" id="artistPreview">
+            <span class="artist-preview-text">No PFP selected ☆</span>
+        </div>
+
+        <label for="artistDisplayName">Artist name</label>
+        <input
+            type="text"
+            id="artistDisplayName"
+            maxlength="50"
+            placeholder="Your display name"
+            required
+        >
+
+        <label for="artistUsername">Username</label>
+        <input
+            type="text"
+            id="artistUsername"
+            maxlength="30"
+            placeholder="@username"
+            required
+        >
+
+        <label for="artistDescription">About</label>
+        <textarea
+            id="artistDescription"
+            maxlength="300"
+            placeholder="Tell us a little about yourself..."
+        ></textarea>
+
+        <hr>
+
+        <div class="artist-dialog-actions">
+
+            <button class="artist-button">
+                Add Artist ☆
+            </button>
+
+            <button
+                type="button"
+                class="artist-button"
+                id="closeArtistForm"
+            >
+                Cancel
+            </button>
+
+        </div>
+
+    </form>
+
+</dialog>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+import {
+    getFirestore,
+    collection,
+    doc,
+    setDoc,
+    deleteDoc,
+    onSnapshot,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+/* FIREBASE */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDVutuJI5YIVcU_nGdneVxXpsZNttgEVjw",
+    authDomain: "monbooru-posts.firebaseapp.com",
+    projectId: "monbooru-posts",
+    storageBucket: "monbooru-posts.firebasestorage.app",
+    messagingSenderId: "318383178534",
+    appId: "1:318383178534:web:ec84a945c58a1afbbcb7e7"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const artistCollection = collection(db, "artists");
+
+/* ELEMENTS */
+
+const artistList = document.getElementById("artistList");
+const artistDialog = document.getElementById("artistDialog");
+const artistForm = document.getElementById("artistForm");
+const artistSearch = document.getElementById("artistSearch");
+const artistCount = document.getElementById("artistCount");
+
+const artistPfpInput = document.getElementById("artistPfp");
+const artistPreview = document.getElementById("artistPreview");
+
+const artistNameInput = document.getElementById("artistDisplayName");
+const artistUsernameInput = document.getElementById("artistUsername");
+const artistDescriptionInput = document.getElementById("artistDescription");
+
+/* ACTUAL ADD BUTTON INSIDE THE FORM */
+
+const addArtistButton = artistForm.querySelector(
+    ".artist-dialog-actions button:first-child"
+);
+
+const closeArtistButton = document.getElementById("closeArtistForm");
+
+/* STATUS MESSAGE */
+
+const artistStatus = document.createElement("p");
+
+artistStatus.id = "artistStatus";
+artistStatus.setAttribute("role", "status");
+artistStatus.setAttribute("aria-live", "polite");
+artistStatus.style.margin = "4px 0";
+artistStatus.hidden = true;
+
+artistForm.insertBefore(
+    artistStatus,
+    artistForm.querySelector(".artist-dialog-actions")
+);
+
+function showArtistMessage(message, type = "normal") {
+    artistStatus.hidden = false;
+    artistStatus.className = "artist-status artist-status-" + type;
+    artistStatus.innerHTML = message;
+}
+
+function clearArtistMessage() {
+    artistStatus.hidden = true;
+    artistStatus.textContent = "";
+    artistStatus.className = "artist-status";
+}
+
+/* STATE */
+
+let artists = [];
+let selectedArtistPfp = "";
+let artistStorage = null;
+let addingArtist = false;
+
+/* INDEXEDDB */
+
+function openArtistStorage() {
+    if (artistStorage) return artistStorage;
+
+    artistStorage = new Promise((resolve, reject) => {
+        const request = indexedDB.open("monbooruDB");
+
+        request.onupgradeneeded = () => {
+            const database = request.result;
+
+            if (!database.objectStoreNames.contains("artists")) {
+                database.createObjectStore("artists", {
+                    keyPath: "id"
+                });
+            }
+        };
+
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+    });
+
+    return artistStorage;
+}
+
+async function saveArtistPfp(id, data) {
+    const database = await openArtistStorage();
+
+    return new Promise((resolve, reject) => {
+        const transaction = database.transaction("artists", "readwrite");
+
+        transaction.objectStore("artists").put({
+            id,
+            data
+        });
+
+        transaction.oncomplete = resolve;
+        transaction.onerror = () => reject(transaction.error);
+        transaction.onabort = () => reject(transaction.error);
+    });
+}
+
+async function getArtistPfp(id) {
+    const database = await openArtistStorage();
+
+    return new Promise((resolve, reject) => {
+        const transaction = database.transaction("artists", "readonly");
+        const request = transaction.objectStore("artists").get(id);
+
+        request.onsuccess = () => resolve(request.result?.data || "");
+        request.onerror = () => reject(request.error);
+    });
+}
+
+async function deleteArtistPfp(id) {
+    if (!id) return;
+
+    const database = await openArtistStorage();
+
+    return new Promise((resolve, reject) => {
+        const transaction = database.transaction("artists", "readwrite");
+
+        transaction.objectStore("artists").delete(id);
+
+        transaction.oncomplete = resolve;
+        transaction.onerror = () => reject(transaction.error);
+        transaction.onabort = () => reject(transaction.error);
+    });
+}
+
+/* PFP PREVIEW */
+
+function showArtistPreview(source) {
+    artistPreview.replaceChildren();
+
+    if (!source) {
+        const message = document.createElement("span");
+
+        message.className = "artist-preview-text";
+        message.textContent = "No PFP selected ☆";
+
+        artistPreview.appendChild(message);
+        return;
+    }
+
+    const image = document.createElement("img");
+
+    image.src = source;
+    image.alt = "PFP preview";
+
+    artistPreview.appendChild(image);
+}
+
+artistPfpInput.addEventListener("change", () => {
+    const file = artistPfpInput.files[0];
+
+    selectedArtistPfp = "";
+
+    if (!file) {
+        showArtistPreview("");
+        return;
+    }
+
+    if (
+        !file.type.startsWith("image/") ||
+        file.size > 5 * 1024 * 1024
+    ) {
+        artistPfpInput.value = "";
+        showArtistPreview("");
+
+        showArtistMessage(
+            "Invalid PFP! Please choose an image under 5 MB.",
+            "error"
+        );
+
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+        selectedArtistPfp = reader.result;
+        showArtistPreview(selectedArtistPfp);
+        showArtistMessage("PFP selected successfully! ☆", "success");
+    };
+
+    reader.onerror = () => {
+        showArtistMessage(
+            "Could not read that image. Please try another one!",
+            "error"
+        );
+    };
+
+    reader.readAsDataURL(file);
+});
+
+/* RENDER ARTISTS */
+
+function renderArtists() {
+    const query = artistSearch.value.toLowerCase().trim();
+
+    const filtered = artists.filter(artist =>
+        artist.name.toLowerCase().includes(query) ||
+        artist.username.toLowerCase().includes(query)
+    );
+
+    artistCount.textContent =
+        `${artists.length} ${artists.length === 1 ? "artist" : "artists"} ☆`;
+
+    artistList.replaceChildren();
+
+    if (!filtered.length) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+
+        cell.colSpan = 3;
+        cell.className = "artist-empty";
+
+        cell.textContent = artists.length
+            ? "No artist found! ☆"
+            : "Nobody here yet! Be the first artist! ☆";
+
+        row.appendChild(cell);
+        artistList.appendChild(row);
+        return;
+    }
+
+    filtered.forEach(artist => {
+        const row = document.createElement("tr");
+
+        const personCell = document.createElement("td");
+        const person = document.createElement("div");
+
+        person.className = "artist-person";
+
+        if (artist.pfp) {
+            const pfp = document.createElement("img");
+
+            pfp.className = "artist-pfp";
+            pfp.src = artist.pfp;
+            pfp.alt = "";
+            pfp.loading = "lazy";
+            pfp.onerror = () => pfp.remove();
+
+            person.appendChild(pfp);
+        }
+
+        const identity = document.createElement("div");
+
+        const name = document.createElement("div");
+        name.className = "artist-name";
+        name.textContent = artist.name;
+
+        const username = document.createElement("div");
+        username.className = "artist-username";
+        username.textContent =
+            "@" + artist.username.replace(/^@/, "");
+
+        identity.append(name, username);
+        person.appendChild(identity);
+        personCell.appendChild(person);
+
+        const descriptionCell = document.createElement("td");
+
+        descriptionCell.className = "artist-description";
+        descriptionCell.textContent =
+            artist.description || "Just an artist! ☆";
+
+        const actionCell = document.createElement("td");
+        const removeButton = document.createElement("button");
+
+        removeButton.type = "button";
+        removeButton.className = "artist-remove";
+        removeButton.textContent = "Remove";
+
+        removeButton.addEventListener("click", async () => {
+            removeButton.disabled = true;
+
+            try {
+                await deleteDoc(doc(db, "artists", artist.id));
+
+                if (artist.pfpId) {
+                    await deleteArtistPfp(artist.pfpId);
+                }
+
+            } catch (error) {
+                removeButton.disabled = false;
+                console.error("Could not remove artist:", error);
+            }
+        });
+
+        actionCell.appendChild(removeButton);
+
+        row.append(personCell, descriptionCell, actionCell);
+        artistList.appendChild(row);
+    });
+}
+
+/* OPEN BUTTON */
+
+document.getElementById("openArtistForm")
+    .addEventListener("click", () => {
+        clearArtistMessage();
+        artistDialog.showModal();
+    });
+
+/* CANCEL BUTTON */
+
+closeArtistButton.addEventListener("click", () => {
+    artistDialog.close();
+});
+
+/* ADD ARTIST BUTTON */
+
+addArtistButton.addEventListener("click", async event => {
+    event.preventDefault();
+
+    if (addingArtist) {
+        showArtistMessage(
+            "One moment! Your artist is already being added...",
+            "normal"
+        );
+        return;
+    }
+
+    if (!artistForm.reportValidity()) {
+        showArtistMessage(
+            "Wait! Please complete the required artist information first.",
+            "error"
+        );
+        return;
+    }
+
+    const name = artistNameInput.value.trim();
+    const username = artistUsernameInput.value.trim();
+    const description = artistDescriptionInput.value.trim();
+
+    if (!name || !username) {
+        showArtistMessage(
+            "Artist name and username cannot be empty!",
+            "error"
+        );
+        return;
+    }
+
+    addingArtist = true;
+    addArtistButton.disabled = true;
+
+    showArtistMessage(
+        "Adding artist... please wait! ☆",
+        "normal"
+    );
+
+    try {
+        const artistRef = doc(artistCollection);
+        const id = artistRef.id;
+        const pfpId = selectedArtistPfp ? id : "";
+
+        if (selectedArtistPfp) {
+            await saveArtistPfp(id, selectedArtistPfp);
+        }
+
+        await setDoc(artistRef, {
+            name,
+            username,
+            description,
+            pfpId,
+            joined: serverTimestamp()
+        });
+
+        artistForm.reset();
+
+        selectedArtistPfp = "";
+        showArtistPreview("");
+
+        showArtistMessage(
+            "Artist added successfully! Welcome aboard! ☆",
+            "success"
+        );
+
+        setTimeout(() => {
+            artistDialog.close();
+            clearArtistMessage();
+        }, 1200);
+
+    } catch (error) {
+        console.error("Artist creation failed:", error);
+
+        showArtistMessage(
+            'Error: Cannot add artist. If you think it is your internet connection, nope! Check our <a href="tips">TIPS</a> if we got it wrong!',
+            "error"
+        );
+
+    } finally {
+        addingArtist = false;
+        addArtistButton.disabled = false;
+    }
+});
+
+/* PREVENT IMPLICIT FORM SUBMISSION */
+
+artistForm.addEventListener("keydown", event => {
+    if (
+        event.key === "Enter" &&
+        event.target.tagName !== "TEXTAREA"
+    ) {
+        event.preventDefault();
+    }
+});
+
+/* SEARCH */
+
+artistSearch.addEventListener("input", renderArtists);
+
+/* FIRESTORE LIVE UPDATES */
+
+onSnapshot(
+    artistCollection,
+
+    async snapshot => {
+        const loadedArtists = await Promise.all(
+            snapshot.docs.map(async artistDoc => {
+                const data = artistDoc.data();
+
+                let pfp = "";
+
+                if (data.pfpId) {
+                    try {
+                        pfp = await getArtistPfp(data.pfpId);
+                    } catch {
+                        pfp = "";
+                    }
+                }
+
+                return {
+                    id: artistDoc.id,
+                    name: data.name || "",
+                    username: data.username || "",
+                    description: data.description || "",
+                    pfpId: data.pfpId || "",
+                    pfp
+                };
+            })
+        );
+
+        artists = loadedArtists;
+        renderArtists();
+    },
+
+    error => {
+        console.error("Artist directory update failed:", error);
+
+        showArtistMessage(
+            'Could not load the artist directory. Check our <a href="tips">TIPS</a>!',
+            "error"
+        );
+    }
+);
+
+/* INITIALIZE */
+
+showArtistPreview("");
+renderArtists();
+
+</script>
+
+
+</body>
+</html>
