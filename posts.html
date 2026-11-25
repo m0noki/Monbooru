@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon-cat.v2.png">
+<title>Monbooru Posts</title>
+
+<style>
+@font-face {
+    font-family: "07LightNovelPop";
+    src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/LightNovelPOPv2.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "07Nikumaru7";
+    src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/07Nikumaru7.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "07Yasashisa7";
+    src: url("https://cdn.jsdelivr.net/gh/internetxxnobody/ribbonyxs-storage-io@main/07%E3%82%84%E3%81%95%E3%81%97%E3%81%95%E3%82%B4%E3%82%B7%E3%83%83%E3%82%AF%E3%83%9C%E3%83%BC%E3%83%AB%E3%83%89.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(188, 216, 222, 0.5);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+html, body * {
+    cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1031.png") 32 32, auto !important;
+}
+
+a, button, select {
+    cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1030.png") 32 32, auto !important;
+}
+
+textarea, input[type="text"], input[type="file"], p, h1, h2 {
+    cursor: url("https://ani.cursors-4u.net/cursors/images11/cur1047.png") 32 32, auto !important;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    background-color: #EDF4F7;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M-2 2L2 -2M0 8L8 0M6 10L10 6M-2 6L2 10M0 0L8 8M6 -2L10 2' stroke='%23DAE7EB' stroke-width='3'/%3E%3C/svg%3E");
+    color: #8FACB5;
+    font-family: "07Yasashisa7", sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+div {
+    box-sizing: border-box;
+    padding: 2px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #70868E;
+    font-family: "07LightNovelPop", sans-serif;
+    font-weight: bold;
+    margin: 2px 0;
+    padding: 2px;
+}
+
+p {
+    color: #8FACB5;
+    margin: 2px 0;
+}
+
+a {
+    color: #70868E;
+    text-decoration: underline;
+    font-family: "07Nikumaru7", "07LightNovelPop", sans-serif;
+}
+
+a:hover {
+    color: #8FACB5;
+    text-decoration: none;
+}
+
+hr {
+    border: 0;
+    border-top: 1px ridge #70868E;
+    margin: 4px 0;
+}
+
+ul {
+    list-style-type: "☆ ";
+}
+
+ul, ol {
+    margin: 2px 0;
+    padding-left: 18px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+button, input, textarea, select {
+    font-family: "07Yasashisa7", sans-serif;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+
+::placeholder {
+    opacity: 0.5;
+}
+
+textarea {
+    width: 100%;
+}
+
+/* POSTS */
+
+.posts-section {
+    color: #8FACB5;
+    padding: 2px;
+    font-family: "07Yasashisa7", sans-serif;
+    font-size: 12px;
+}
+
+.posts-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.posts-header h2 {
+    margin: 2px 0;
+    font-size: 17px;
+}
+
+.posts-count {
+    font-size: 12px;
+}
+
+.posts-intro {
+    margin: 4px 0;
+}
+
+.posts-section hr,
+.post-dialog hr {
+    border: 0;
+    border-top: 1px solid #DAE7EB;
+    margin: 5px 0;
+}
+
+.posts-button {
+    border: 1px solid #8FACB5;
+    border-radius: 0;
+    background: linear-gradient(to bottom, #FFFFFF, #EDF4F7 48%, #DAE7EB);
+    color: #70868E;
+    padding: 2px 7px;
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.posts-button:hover {
+    background: #DAE7EB;
+    border-color: #70868E;
+}
+
+.posts-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin: 5px 0;
+}
+
+.posts-search {
+    flex: 1;
+    min-width: 120px;
+    border: 1px solid #8FACB5;
+    border-radius: 0;
+    background: white;
+    color: #70868E;
+    padding: 2px;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.posts-sort {
+    border: 1px solid #8FACB5;
+    border-radius: 0;
+    background: white;
+    color: #70868E;
+    padding: 2px;
+    font-family: inherit;
+    font-size: 12px;
+}
+
+/* ADD POST */
+
+.add-post-section {
+    border: 1px solid #DAE7EB;
+    background: #F7FBFC;
+    padding: 4px;
+    margin: 5px 0;
+}
+
+.add-post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.add-post-header h3 {
+    font-size: 14px;
+    margin: 2px 0;
+}
+
+.add-post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.add-post-form[hidden] {
+    display: none;
+}
+
+.add-post-field {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.add-post-field label {
+    font-weight: bold;
+    color: #70868E;
+}
+
+.add-post-field input[type="text"],
+.add-post-field textarea,
+.add-post-field input[type="file"] {
+    width: 100%;
+    border: 1px solid #8FACB5;
+    border-radius: 0;
+    background: #FFFFFF;
+    color: #70868E;
+    padding: 3px;
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.add-post-field textarea {
+    min-height: 75px;
+    resize: vertical;
+}
+
+.add-post-preview {
+    display: none;
+    max-width: 180px;
+    max-height: 180px;
+    object-fit: contain;
+    border: 1px solid #DAE7EB;
+    background: #EDF4F7;
+    padding: 2px;
+}
+
+.add-post-preview.visible {
+    display: block;
+}
+
+.add-post-status {
+    min-height: 16px;
+    overflow-wrap: anywhere;
+}
+
+.add-post-status.error {
+    color: #A34B4B;
+}
+
+.add-post-status.success {
+    color: #557C68;
+}
+
+/* TAGS */
+
+.posts-tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 5px 0;
+}
+
+.posts-tags-label {
+    font-weight: bold;
+}
+
+.post-tag,
+.post-view-tag {
+    display: inline-block;
+    border: 1px solid #DAE7EB;
+    background: #F7FBFC;
+    color: #70868E;
+    padding: 1px 4px;
+    font-family: inherit;
+    font-size: 11px;
+}
+
+.post-tag:hover {
+    border-color: #70868E;
+    background: #DAE7EB;
+}
+
+/* GRID */
+
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 4px;
+    padding: 2px 0;
+}
+
+.post-thumbnail {
+    min-width: 0;
+    border: 1px solid #DAE7EB;
+    background: #FFFFFF;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.post-thumbnail:hover {
+    border-color: #70868E;
+}
+
+.post-thumbnail img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background: #EDF4F7;
+}
+
+.post-thumbnail-info {
+    padding: 2px;
+    overflow: hidden;
+}
+
+.post-thumbnail-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    font-weight: bold;
+    color: #70868E;
+}
+
+.post-thumbnail-artist {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 11px;
+}
+
+.posts-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 20px 4px;
+    border: 1px dashed #DAE7EB;
+}
+
+/* PAGINATION */
+
+.posts-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin: 5px 0 2px;
+}
+
+.pagination-button {
+    border: 1px solid #8FACB5;
+    background: #FFFFFF;
+    color: #70868E;
+    padding: 2px 6px;
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.pagination-button.active {
+    background: #DAE7EB;
+    border-color: #70868E;
+    font-weight: bold;
+}
+
+
+.post-dialog {
+    width: min(850px, 94vw);
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid #8FACB5;
+    border-radius: 0;
+    background: #EDF4F7;
+    color: #70868E;
+    padding: 4px;
+    font-family: "07Yasashisa7", sans-serif;
+}
+
+.post-dialog::backdrop {
+    background: rgba(50, 70, 80, 0.55);
+}
+
+.post-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+.post-dialog-header h2 {
+    margin: 2px 0;
+    font-size: 16px;
+}
+
+.post-view {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(180px, 1fr);
+    gap: 8px;
+    align-items: start;
+}
+
+.post-image-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    background: #DAE7EB;
+    border: 1px solid #DAE7EB;
+    padding: 2px;
+}
+
+.post-image-area img {
+    display: block;
+    max-width: 100%;
+    max-height: 65vh;
+    object-fit: contain;
+}
+
+.post-information h3,
+.post-comments h3 {
+    margin: 2px 0 5px;
+    font-size: 14px;
+}
+
+.post-category {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.post-description {
+    border-top: 1px solid #DAE7EB;
+    margin-top: 5px;
+    padding-top: 4px;
+    font-size: 12px;
+}
+
+.post-description p {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.post-view-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.post-comments-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.post-comment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 5px 0;
+}
+
+.post-comment {
+    border-bottom: 1px solid #DAE7EB;
+    padding: 3px;
+}
+
+.post-comment-author {
+    color: #70868E;
+}
+
+.post-comment-date {
+    margin-left: 5px;
+    font-size: 10px;
+}
+
+.post-comment-content {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.post-comment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.post-comment-form label {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.post-comment-form textarea {
+    width: 100%;
+    min-height: 65px;
+    resize: vertical;
+    border: 1px solid #8FACB5;
+    border-radius: 0;
+    background: white;
+    color: #70868E;
+    padding: 2px;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+@media screen and (max-width: 599px) {
+    body {
+        font-size: 12px;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    h1 { font-size: 19px; }
+    h2 { font-size: 17px; }
+    h3 { font-size: 14px; }
+
+    p, li {
+        overflow-wrap: break-word;
+    }
+
+    ul, ol {
+        padding-left: 16px;
+    }
+
+    input, textarea, select, button {
+        max-width: 100%;
+    }
+
+    .posts-grid {
+        grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+    }
+
+    .post-view {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 899px) {
+    body { font-size: 12px; }
+    h1 { font-size: 21px; }
+    h2 { font-size: 19px; }
+}
+
+@media screen and (min-width: 900px) and (max-width: 1199px) {
+    body { font-size: 13px; }
+    h1 { font-size: 23px; }
+    h2 { font-size: 20px; }
+}
+
+@media screen and (min-width: 1600px) {
+    body { font-size: 14px; }
+    h1 { font-size: 27px; }
+    h2 { font-size: 23px; }
+    h3 { font-size: 18px; }
+
+    p, li {
+        line-height: 1.6;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<section class="posts-section" id="posts">
+
+    <div class="posts-header">
+        <h2>✩⁺˚ Posts ˚⁺✩</h2>
+        <span class="posts-count" id="postsCount">0 posts ☆</span>
+    </div>
+
+    <p class="posts-intro">Post anything here! ✩</p>
+
+    <hr>
+
+    <!-- ADD POST -->
+
+    <section class="add-post-section">
+        <div class="add-post-header">
+            <h3>✩ Add a Post</h3>
+            <button type="button" class="posts-button" id="toggleAddPost">
+                Add Post +
+            </button>
+        </div>
+
+        <div class="add-post-form" id="addPostForm" hidden>
+
+            <div class="add-post-field">
+                <label for="newPostUsername">Artist username</label>
+                <input
+                    type="text"
+                    id="newPostUsername"
+                    maxlength="40"
+                    placeholder="Your Monbooru username"
+                    autocomplete="off"
+                    required
+                >
+            </div>
+
+            <div class="add-post-field">
+                <label for="newPostTitle">Post title</label>
+                <input
+                    type="text"
+                    id="newPostTitle"
+                    maxlength="120"
+                    placeholder="Give your post a title..."
+                    required
+                >
+            </div>
+
+            <div class="add-post-field">
+                <label for="newPostImage">Image</label>
+                <input
+                    type="file"
+                    id="newPostImage"
+                    accept="image/*"
+                    required
+                >
+                <img
+                    class="add-post-preview"
+                    id="newPostPreview"
+                    alt="Image preview"
+                >
+            </div>
+
+            <div class="add-post-field">
+                <label for="newPostDescription">Description</label>
+                <textarea
+                    id="newPostDescription"
+                    maxlength="5000"
+                    placeholder="Write a description..."
+                ></textarea>
+            </div>
+
+            <div class="add-post-field">
+                <label for="newPostTags">Tags</label>
+                <input
+                    type="text"
+                    id="newPostTags"
+                    maxlength="500"
+                    placeholder="art, drawing, original character"
+                >
+                <small>Separate tags with commas.</small>
+            </div>
+
+            <p class="add-post-status" id="addPostStatus" aria-live="polite"></p>
+
+            <button type="button" class="posts-button" id="submitNewPost">
+                Submit Post ☆
+            </button>
+
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- SEARCH AND SORT -->
+
+    <div class="posts-toolbar">
+        <input
+            type="text"
+            class="posts-search"
+            id="postsSearch"
+            placeholder="Search posts or tags..."
+        >
+
+        <button
+            type="button"
+            class="posts-button"
+            id="postsSearchButton"
+        >
+            Search ☆
+        </button>
+
+        <select class="posts-sort" id="postsSort">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+        </select>
+    </div>
+
+    <!-- POPULAR TAGS -->
+
+    <div class="posts-tags" id="postsTags">
+        <span class="posts-tags-label">Popular tags:</span>
+        <span>No tags yet ☆</span>
+    </div>
+
+    <hr>
+
+    <!-- GALLERY -->
+
+    <div class="posts-grid" id="postsGrid">
+        <div class="posts-empty">Loading posts... ☆</div>
+    </div>
+
+    <nav
+        class="posts-pagination"
+        id="postsPagination"
+        aria-label="Posts pages"
+    ></nav>
+
+</section>
+
+<!-- POST VIEWER -->
+
+<dialog class="post-dialog" id="postDialog">
+
+    <div class="post-dialog-header">
+        <h2 id="postTitle">Post title</h2>
+        <button
+            type="button"
+            class="posts-button"
+            id="closePostDialog"
+        >
+            Close ×
+        </button>
+    </div>
+
+    <hr>
+
+    <div class="post-view">
+
+        <div class="post-image-area">
+            <img id="postImage" src="" alt="">
+        </div>
+
+        <div class="post-information">
+            <h3>Post information</h3>
+
+            <div class="post-category">
+                <strong>Artist:</strong>
+                <a href="#posts" id="postArtist">@username</a>
+            </div>
+
+            <div class="post-category">
+                <strong>Posted:</strong>
+                <span id="postTimestamp">Unknown</span>
+            </div>
+
+            <div class="post-category">
+                <strong>Tags:</strong>
+                <div class="post-view-tags" id="postViewTags"></div>
+            </div>
+
+            <div class="post-description">
+                <strong>Description:</strong>
+                <p id="postDescription">No description.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <section class="post-comments">
+
+        <div class="post-comments-header">
+            <h3>Comments</h3>
+            <span id="postCommentCount">0 comments</span>
+        </div>
+
+        <div class="post-comment-list" id="postCommentList">
+            <p>No comments yet! ☆</p>
+        </div>
+
+        <hr>
+
+        <div class="post-comment-form">
+            <label for="postCommentInput">Write a comment</label>
+
+            <textarea
+                id="postCommentInput"
+                maxlength="1000"
+                placeholder="Write something..."
+            ></textarea>
+
+            <button
+                type="button"
+                class="posts-button"
+                id="submitPostComment"
+            >
+                Send Comment ☆
+            </button>
+        </div>
+
+    </section>
+
+</dialog>
+
+<script type="module">
+
+import {
+    initializeApp,
+    getApp,
+    getApps
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    query,
+    orderBy,
+    addDoc,
+    setDoc,
+    serverTimestamp,
+    where,
+    limit,
+    doc
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+import {
+    getStorage,
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-storage.js";
+
+// =====================================
+// FIREBASE INITIALIZATION
+// =====================================
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDVutuJI5YIVcU_nGdneVxXpsZNttgEVjw",
+    authDomain: "monbooru-posts.firebaseapp.com",
+    projectId: "monbooru-posts",
+    storageBucket: "monbooru-posts.firebasestorage.app",
+    messagingSenderId: "318383178534",
+    appId: "1:318383178534:web:ec84a945c58a1afbbcb7e7"
+};
+
+const app = getApps().length
+    ? getApp()
+    : initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+// =====================================
+// CONFIGURATION
+// =====================================
+
+const POSTS_PER_PAGE = 12;
+
+const COMMENT_AUTHOR = {
+    username: "guest",
+    displayName: "Guest"
+};
+
+// =====================================
+// ELEMENTS
+// =====================================
+
+const postsGrid = document.getElementById("postsGrid");
+const postsCount = document.getElementById("postsCount");
+const postsSearch = document.getElementById("postsSearch");
+const postsSearchButton = document.getElementById("postsSearchButton");
+const postsSort = document.getElementById("postsSort");
+const postsTags = document.getElementById("postsTags");
+const postsPagination = document.getElementById("postsPagination");
+
+const toggleAddPost = document.getElementById("toggleAddPost");
+const addPostForm = document.getElementById("addPostForm");
+
+const newPostUsername = document.getElementById("newPostUsername");
+const newPostTitle = document.getElementById("newPostTitle");
+const newPostImage = document.getElementById("newPostImage");
+const newPostPreview = document.getElementById("newPostPreview");
+const newPostDescription = document.getElementById("newPostDescription");
+const newPostTags = document.getElementById("newPostTags");
+
+const addPostStatus = document.getElementById("addPostStatus");
+const submitNewPost = document.getElementById("submitNewPost");
+
+const postDialog = document.getElementById("postDialog");
+const postTitle = document.getElementById("postTitle");
+const closePostDialog = document.getElementById("closePostDialog");
+const postImage = document.getElementById("postImage");
+const postArtist = document.getElementById("postArtist");
+const postTimestamp = document.getElementById("postTimestamp");
+const postViewTags = document.getElementById("postViewTags");
+const postDescription = document.getElementById("postDescription");
+
+const postCommentCount = document.getElementById("postCommentCount");
+const postCommentList = document.getElementById("postCommentList");
+const postCommentInput = document.getElementById("postCommentInput");
+const submitPostComment = document.getElementById("submitPostComment");
+
+// =====================================
+// STATE
+// =====================================
+
+let allPosts = [];
+let filteredPosts = [];
+
+let currentPage = 1;
+let activeArtist = null;
+let activePost = null;
+
+let previewObjectURL = null;
+
+// =====================================
+// ELEMENT CHECK
+// =====================================
+
+const requiredElements = {
+    postsGrid,
+    postsCount,
+    postsSearch,
+    postsSearchButton,
+    postsSort,
+    postsTags,
+    postsPagination,
+    toggleAddPost,
+    addPostForm,
+    newPostUsername,
+    newPostTitle,
+    newPostImage,
+    newPostPreview,
+    newPostDescription,
+    newPostTags,
+    addPostStatus,
+    submitNewPost,
+    postDialog,
+    postTitle,
+    closePostDialog,
+    postImage,
+    postArtist,
+    postTimestamp,
+    postViewTags,
+    postDescription,
+    postCommentCount,
+    postCommentList,
+    postCommentInput,
+    submitPostComment
+};
+
+const missingElements = Object.entries(requiredElements)
+    .filter(([, element]) => !element)
+    .map(([name]) => name);
+
+if (missingElements.length) {
+    throw new Error(
+        "Posts Gallery is missing HTML elements: " +
+        missingElements.join(", ")
+    );
+}
+
+// =====================================
+// UTILITIES
+// =====================================
+
+function createElement(tag, className, text) {
+    const element = document.createElement(tag);
+
+    if (className) {
+        element.className = className;
+    }
+
+    if (text !== undefined) {
+        element.textContent = text;
+    }
+
+    return element;
+}
+
+function clearElement(element) {
+    element.replaceChildren();
+}
+
+function setPostStatus(message, type = "") {
+    addPostStatus.textContent = message;
+    addPostStatus.className = "add-post-status";
+
+    if (type) {
+        addPostStatus.classList.add(type);
+    }
+}
+
+function formatDate(timestamp) {
+    if (!timestamp?.toDate) {
+        return "Date unavailable";
+    }
+
+    return timestamp.toDate().toLocaleString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+    });
+}
+
+function getTimestampSeconds(post) {
+    return post.createdAt?.seconds || 0;
+}
+
+function showEmptyMessage(message) {
+    clearElement(postsGrid);
+
+    postsGrid.appendChild(
+        createElement("div", "posts-empty", message)
+    );
+}
+
+// =====================================
+// ADD POST SECTION
+// =====================================
+
+toggleAddPost.addEventListener("click", () => {
+    addPostForm.hidden = !addPostForm.hidden;
+
+    toggleAddPost.textContent = addPostForm.hidden
+        ? "Add Post +"
+        : "Close −";
+});
+
+// =====================================
+// IMAGE PREVIEW
+// =====================================
+
+newPostImage.addEventListener("change", () => {
+    const file = newPostImage.files[0];
+
+    if (previewObjectURL) {
+        URL.revokeObjectURL(previewObjectURL);
+        previewObjectURL = null;
+    }
+
+    newPostPreview.removeAttribute("src");
+    newPostPreview.classList.remove("visible");
+
+    if (!file) {
+        return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+        setPostStatus("Please select a valid image file.", "error");
+        newPostImage.value = "";
+        return;
+    }
+
+    previewObjectURL = URL.createObjectURL(file);
+
+    newPostPreview.src = previewObjectURL;
+    newPostPreview.classList.add("visible");
+
+    setPostStatus("");
+});
+
+// =====================================
+// FIND ARTIST
+// =====================================
+
+async function findArtist(username) {
+    const artistQuery = query(
+        collection(db, "artists"),
+        where("username", "==", username),
+        limit(1)
+    );
+
+    const snapshot = await getDocs(artistQuery);
+
+    if (snapshot.empty) {
+        return {
+            username,
+            displayName: username
+        };
+    }
+
+    const artistData = snapshot.docs[0].data();
+
+    return {
+        username: artistData.username || username,
+        displayName: artistData.name || username
+    };
+}
+
+// =====================================
+// CREATE POST
+// =====================================
+
+async function createPost() {
+    const username = newPostUsername.value.trim();
+    const title = newPostTitle.value.trim();
+    const description = newPostDescription.value.trim();
+    const file = newPostImage.files[0];
+
+    if (!username) {
+        setPostStatus("Enter your artist username first.", "error");
+        newPostUsername.focus();
+        return;
+    }
+
+    if (!title) {
+        setPostStatus("Enter a post title first.", "error");
+        newPostTitle.focus();
+        return;
+    }
+
+    if (!file) {
+        setPostStatus("Choose an image first.", "error");
+        newPostImage.focus();
+        return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+        setPostStatus("The selected file is not an image.", "error");
+        return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+        setPostStatus("Images must be 10 MB or smaller.", "error");
+        return;
+    }
+
+    const tags = [...new Set(
+        newPostTags.value
+            .split(",")
+            .map(tag => tag.trim().toLowerCase())
+            .filter(Boolean)
+    )];
+
+    submitNewPost.disabled = true;
+
+    try {
+        setPostStatus("Finding artist...");
+
+        const artist = await findArtist(username);
+
+        const postReference = doc(collection(db, "posts"));
+        const postId = postReference.id;
+
+        const safeFileName = file.name.replace(
+            /[^a-zA-Z0-9._-]/g,
+            "_"
+        );
+
+        const imagePath =
+            `posts/${postId}/${Date.now()}_${safeFileName}`;
+
+        const imageReference = ref(storage, imagePath);
+
+        setPostStatus("Uploading image...");
+
+        await uploadBytes(imageReference, file, {
+            contentType: file.type
+        });
+
+        const imageUrl = await getDownloadURL(imageReference);
+
+        const postData = {
+            title,
+            description,
+            artistUsername: artist.username,
+            artistDisplayName: artist.displayName,
+            tags,
+            imageUrl,
+            thumbnailUrl: imageUrl,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+            commentCount: 0
+        };
+
+        setPostStatus("Publishing post...");
+
+        await setDoc(postReference, postData);
+
+        // Clear the posting fields after successful publishing.
+
+        newPostTitle.value = "";
+        newPostImage.value = "";
+        newPostDescription.value = "";
+        newPostTags.value = "";
+
+        if (previewObjectURL) {
+            URL.revokeObjectURL(previewObjectURL);
+            previewObjectURL = null;
+        }
+
+        newPostPreview.removeAttribute("src");
+        newPostPreview.classList.remove("visible");
+
+        setPostStatus("Your post has been published! ☆", "success");
+
+        await loadPosts();
+
+    } catch (error) {
+        console.error("Post creation failed:", error);
+
+        setPostStatus(
+            "Unable to publish: " + error.message,
+            "error"
+        );
+
+    } finally {
+        submitNewPost.disabled = false;
+    }
+}
+
+submitNewPost.addEventListener("click", createPost);
+
+// =====================================
+// LOAD POSTS
+// =====================================
+
+async function loadPosts() {
+    showEmptyMessage("Loading posts... ☆");
+
+    try {
+        const postsQuery = query(
+            collection(db, "posts"),
+            orderBy("createdAt", "desc")
+        );
+
+        const snapshot = await getDocs(postsQuery);
+
+        allPosts = snapshot.docs.map(postDoc => ({
+            id: postDoc.id,
+            ...postDoc.data()
+        }));
+
+        renderPopularTags();
+        applyPostFilters();
+
+    } catch (error) {
+        console.error("Could not load posts:", error);
+
+        showEmptyMessage(
+            "Unable to load posts: " + error.message
+        );
+    }
+}
+
+// =====================================
+// FILTER AND SORT
+// =====================================
+
+function applyPostFilters() {
+    const searchTerm = postsSearch.value.trim().toLowerCase();
+
+    filteredPosts = allPosts.filter(post => {
+        const title = String(post.title || "").toLowerCase();
+        const description = String(post.description || "").toLowerCase();
+
+        const artist = String(
+            post.artistDisplayName || ""
+        ).toLowerCase();
+
+        const username = String(
+            post.artistUsername || ""
+        ).toLowerCase();
+
+        const tags = Array.isArray(post.tags)
+            ? post.tags.map(tag => String(tag).toLowerCase())
+            : [];
+
+        const matchesSearch =
+            !searchTerm ||
+            title.includes(searchTerm) ||
+            description.includes(searchTerm) ||
+            artist.includes(searchTerm) ||
+            username.includes(searchTerm) ||
+            tags.some(tag => tag.includes(searchTerm));
+
+        const matchesArtist =
+            !activeArtist ||
+            username === activeArtist.toLowerCase();
+
+        return matchesSearch && matchesArtist;
+    });
+
+    if (postsSort.value === "oldest") {
+        filteredPosts.sort((a, b) =>
+            getTimestampSeconds(a) - getTimestampSeconds(b)
+        );
+    } else {
+        filteredPosts.sort((a, b) =>
+            getTimestampSeconds(b) - getTimestampSeconds(a)
+        );
+    }
+
+    currentPage = 1;
+
+    renderPosts();
+}
+
+// =====================================
+// RENDER POSTS
+// =====================================
+
+function renderPosts() {
+    clearElement(postsGrid);
+    clearElement(postsPagination);
+
+    postsCount.textContent = `${filteredPosts.length} posts`;
+
+    if (filteredPosts.length === 0) {
+        showEmptyMessage(
+            activeArtist
+                ? "This artist has no posts yet."
+                : "No posts found. Be the first! ☆"
+        );
+
+        return;
+    }
+
+    const start = (currentPage - 1) * POSTS_PER_PAGE;
+
+    const pagePosts = filteredPosts.slice(
+        start,
+        start + POSTS_PER_PAGE
+    );
+
+    pagePosts.forEach(post => {
+        const card = createElement("article", "post-thumbnail");
+        const image = createElement("img");
+        const info = createElement("div", "post-thumbnail-info");
+
+        const title = createElement(
+            "div",
+            "post-thumbnail-title",
+            post.title || "Untitled"
+        );
+
+        const artist = createElement(
+            "div",
+            "post-thumbnail-artist",
+            post.artistDisplayName ||
+            post.artistUsername ||
+            "Unknown artist"
+        );
+
+        image.src = post.thumbnailUrl || post.imageUrl || "";
+        image.alt = post.title || "Post image";
+        image.loading = "lazy";
+
+        image.addEventListener("error", () => {
+            image.alt = "Image unavailable";
+        });
+
+        info.append(title, artist);
+        card.append(image, info);
+
+        card.addEventListener("click", () => {
+            openPost(post);
+        });
+
+        postsGrid.appendChild(card);
+    });
+
+    renderPagination();
+}
+
+// =====================================
+// PAGINATION
+// =====================================
+
+function renderPagination() {
+    clearElement(postsPagination);
+
+    const totalPages = Math.ceil(
+        filteredPosts.length / POSTS_PER_PAGE
+    );
+
+    if (totalPages <= 1) {
+        return;
+    }
+
+    function makePageButton(
+        label,
+        page,
+        disabled = false,
+        active = false
+    ) {
+        const button = createElement(
+            "button",
+            active
+                ? "pagination-button active"
+                : "pagination-button",
+            label
+        );
+
+        button.type = "button";
+        button.disabled = disabled;
+
+        button.addEventListener("click", () => {
+            currentPage = page;
+            renderPosts();
+        });
+
+        return button;
+    }
+
+    postsPagination.appendChild(
+        makePageButton(
+            "Previous",
+            currentPage - 1,
+            currentPage === 1
+        )
+    );
+
+    for (let page = 1; page <= totalPages; page++) {
+        postsPagination.appendChild(
+            makePageButton(
+                String(page),
+                page,
+                false,
+                page === currentPage
+            )
+        );
+    }
+
+    postsPagination.appendChild(
+        makePageButton(
+            "Next",
+            currentPage + 1,
+            currentPage === totalPages
+        )
+    );
+}
+
+// =====================================
+// POPULAR TAGS
+// =====================================
+
+function renderPopularTags() {
+    clearElement(postsTags);
+
+    postsTags.appendChild(
+        createElement("span", "posts-tags-label", "Popular tags:")
+    );
+
+    const tagCounts = new Map();
+
+    allPosts.forEach(post => {
+        if (!Array.isArray(post.tags)) {
+            return;
+        }
+
+        post.tags.forEach(tag => {
+            const normalized = String(tag).trim().toLowerCase();
+
+            if (!normalized) {
+                return;
+            }
+
+            tagCounts.set(
+                normalized,
+                (tagCounts.get(normalized) || 0) + 1
+            );
+        });
+    });
+
+    const popularTags = [...tagCounts.entries()]
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 12);
+
+    if (popularTags.length === 0) {
+        postsTags.appendChild(
+            createElement("span", "", "No tags yet ☆")
+        );
+
+        return;
+    }
+
+    popularTags.forEach(([tag]) => {
+        const button = createElement("button", "post-tag", tag);
+
+        button.type = "button";
+
+        button.addEventListener("click", () => {
+            postsSearch.value = tag;
+            activeArtist = null;
+
+            applyPostFilters();
+        });
+
+        postsTags.appendChild(button);
+    });
+}
+
+// =====================================
+// OPEN POST
+// =====================================
+
+async function openPost(post) {
+    activePost = post;
+
+    postTitle.textContent = post.title || "Untitled";
+
+    postImage.src = post.imageUrl || post.thumbnailUrl || "";
+    postImage.alt = post.title || "Post image";
+
+    postArtist.textContent =
+        post.artistDisplayName ||
+        post.artistUsername ||
+        "Unknown artist";
+
+    postArtist.href = "#posts";
+
+    postArtist.onclick = event => {
+        event.preventDefault();
+
+        activeArtist = post.artistUsername || "";
+        postsSearch.value = "";
+
+        postDialog.close();
+
+        applyPostFilters();
+
+        document.getElementById("posts").scrollIntoView({
+            behavior: "smooth"
+        });
+    };
+
+    postTimestamp.textContent = formatDate(post.createdAt);
+
+    postDescription.textContent =
+        post.description || "No description.";
+
+    clearElement(postViewTags);
+
+    if (Array.isArray(post.tags)) {
+        post.tags.forEach(tag => {
+            postViewTags.appendChild(
+                createElement("span", "post-view-tag", tag)
+            );
+        });
+    }
+
+    postCommentInput.value = "";
+
+    if (!postDialog.open) {
+        postDialog.showModal();
+    }
+
+    await loadComments(post.id);
+}
+
+// =====================================
+// LOAD COMMENTS
+// =====================================
+
+async function loadComments(postId) {
+    clearElement(postCommentList);
+
+    postCommentList.appendChild(
+        createElement("p", "", "Loading comments...")
+    );
+
+    try {
+        const commentsQuery = query(
+            collection(db, "posts", postId, "comments"),
+            orderBy("createdAt", "asc")
+        );
+
+        const snapshot = await getDocs(commentsQuery);
+
+        clearElement(postCommentList);
+
+        postCommentCount.textContent =
+            `${snapshot.size} comments`;
+
+        if (snapshot.empty) {
+            postCommentList.appendChild(
+                createElement("p", "", "No comments yet! ☆")
+            );
+
+            return;
+        }
+
+        snapshot.forEach(commentDoc => {
+            const comment = commentDoc.data();
+
+            const item = createElement("div", "post-comment");
+
+            const author = createElement(
+                "strong",
+                "post-comment-author",
+                comment.displayName ||
+                comment.username ||
+                "Guest"
+            );
+
+            const date = createElement(
+                "small",
+                "post-comment-date",
+                formatDate(comment.createdAt)
+            );
+
+            const content = createElement(
+                "p",
+                "post-comment-content",
+                comment.content || ""
+            );
+
+            item.append(author, date, content);
+
+            postCommentList.appendChild(item);
+        });
+
+    } catch (error) {
+        console.error("Could not load comments:", error);
+
+        clearElement(postCommentList);
+
+        postCommentList.appendChild(
+            createElement("p", "", "Unable to load comments.")
+        );
+    }
+}
+
+// =====================================
+// SEND COMMENT
+// =====================================
+
+async function sendComment() {
+    if (!activePost) {
+        return;
+    }
+
+    const content = postCommentInput.value.trim();
+
+    if (!content) {
+        return;
+    }
+
+    submitPostComment.disabled = true;
+
+    try {
+        await addDoc(
+            collection(db, "posts", activePost.id, "comments"),
+            {
+                username: COMMENT_AUTHOR.username,
+                displayName: COMMENT_AUTHOR.displayName,
+                content,
+                createdAt: serverTimestamp()
+            }
+        );
+
+        postCommentInput.value = "";
+
+        await loadComments(activePost.id);
+
+        const postIndex = allPosts.findIndex(
+            post => post.id === activePost.id
+        );
+
+        if (postIndex !== -1) {
+            allPosts[postIndex].commentCount =
+                (allPosts[postIndex].commentCount || 0) + 1;
+        }
+
+    } catch (error) {
+        console.error("Could not submit comment:", error);
+
+        postCommentList.appendChild(
+            createElement("p", "", "Could not send comment.")
+        );
+
+    } finally {
+        submitPostComment.disabled = false;
+    }
+}
+
+// =====================================
+// EVENT LISTENERS
+// =====================================
+
+postsSearchButton.addEventListener("click", () => {
+    activeArtist = null;
+    applyPostFilters();
+});
+
+postsSearch.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        activeArtist = null;
+        applyPostFilters();
+    }
+});
+
+postsSort.addEventListener("change", applyPostFilters);
+
+closePostDialog.addEventListener("click", () => {
+    postDialog.close();
+});
+
+submitPostComment.addEventListener("click", sendComment);
+
+// =====================================
+// START GALLERY
+// =====================================
+
+loadPosts();
+
+</script>
+
+</body>
+</html>
